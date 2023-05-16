@@ -4,14 +4,24 @@ from Creature import Creature
 from Element import Element
 from Room import Room
 from Equipment import Equipment
-from Heal import Heal
 from Stairs import Stairs
-from Teleport import Teleport
 import random
 from Map import Map
 from Element import Element
 from Equipment import Equipment 
 import copy
+from getch import getch
+
+def heal(creature):
+    creature.hp+=3
+    return True
+
+def teleport(creature, unique):
+    theGame()._floor.rm(theGame()._floor.pos(creature))
+    r=random.choice(theGame()._floor._rooms)
+    c=r.randEmptyCoord(theGame()._floor)
+    theGame()._floor.put(c,creature)
+    return unique
 
 class Game(object):
     
@@ -67,29 +77,26 @@ class Game(object):
          if n.isdigit() and int(n)<=len(l) :
              return liste[int(n)]
 
-    def theGame(game=Game()) :
-    return game
-
-
     def play(self):
         """Main game loop"""
         self.buildFloor()
         print("--- Welcome Hero! ---")
         while self.hero.hp > 0:
             print()
-            print(self.floor)
+            print(self._floor)
             print(self.hero.description())
             print(self.readMessages())
             c = getch()
-            if c in Game._actions:
-                Game._actions[c](self.hero)
-            self.floor.moveAllMonsters()
+            if str(c)[2] in Game._actions:
+                Game._actions[str(c)[2]](self.hero)
+            self._floor.moveAllMonsters()
         print("--- Game Over ---")
     
+def theGame(game=Game()) :
+        return game
 
 
-
-
+theGame().play()
 
 
                 
