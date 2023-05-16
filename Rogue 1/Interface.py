@@ -7,7 +7,7 @@ pygame.init()
 #pygame.mixer.music.load(r'audio\Menu_Music.mp3')
 #pygame.mixer.music.play(-1)
 #   pygame.mixer.music.set_volume(1.0)
-
+vec = pygame.math.Vector2
 #Title and Icon :
 pygame.display.set_caption("Hunger Games")
 icon=pygame.image.load("icon.png")
@@ -29,64 +29,57 @@ playerY_change=0
 monsterY_change=0
 monsterX_change=0
 
-frameHaut=[ pygame.image.load("zelda_"+str(i)+"_haut.png") for i in range(3)]
-frameBas=[ pygame.image.load("zelda_"+str(i)+"_bas.png") for i in range(3)]
-frameDroite=[ pygame.image.load("zelda_"+str(i)+"_droite.png") for i in range(3)]
-frameGauche=[ pygame.image.load("zelda_"+str(i)+"_gauche.png") for i in range(3)]
-
-def player(x,y,n,way):
-    screen.blit(heroImg,(x,y))
-
-def moveMonsterInterface(x,y):
-    screen.blit(mobImg,(x,y))
-
+frameHaut=[pygame.image.load("zelda_"+str(i)+"_haut.png") for i in range(4)]
+frameBas=[pygame.image.load("zelda_"+str(i)+"_bas.png") for i in range(4)]
+frameDroite=[pygame.image.load("zelda_"+str(i)+"_droite.png") for i in range(4)]
+frameGauche =[pygame.image.load("zelda_"+str(i)+"_gauche.png") for i in range(4)]
 #Game Loop :
-running=True
-i=0
-way=""
-a=0
+direction = {pygame.K_z:vec(0,-1) , pygame.K_d:vec(1,0), pygame.K_q:vec(-1,0), pygame.K_s:vec(0,1)}
 heroImg=pygame.image.load("zelda_0.png")
-clock=pygame.time.Clock().get_fps()
-while running:
+clock=pygame.time.Clock()
+player_coord = vec(300,300)
+actual_frame = 0
+counter = 0
+while 1:
     #RGB : Red Green Blue
     screen.fill((0,0,0))
     
     for event in pygame.event.get():
-            if event.type==pygame.QUIT:
-                running=False   
+        if event.type==pygame.QUIT:
+            pygame.quit()
+            exit()
     
-            if event.type==pygame.KEYDOWN :
-                if event.key==pygame.K_q:
-                    playerX_change=-0.1
-                    i+=1
-                    a=i%4
-                    heroImg=frameGauche[a]
-                    if clock.tick(2) :
-                        i+=1
-                if event.key==pygame.K_d:
-                    playerX_change=0.1
-                    i+=1
-                    a=i%4
-                    way="_droite"
-                if event.key==pygame.K_s:
-                    playerY_change=0.1
-                    i+=1
-                    a=i%4
-                    way="_bas"
-                if event.key==pygame.K_z:
-                    playerY_change=-0.1
-                    
-            if event.type==pygame.KEYUP :
-                 heroImg=pygame.image.load("zelda_0.png")
-                 if event.key==pygame.K_q or event.key==pygame.K_d or event.key==pygame.K_s or event.key==pygame.K_z :
-                    a=0
-                    way=""
-                    playerY_change=0
-                    playerX_change=0 
-                   
-    playerY+=playerY_change
-    playerX+=playerX_change               
-    player(playerX,playerY,a,way)
-    pygame.display.update()
+        if event.type==pygame.KEYDOWN :
+            pass
+    
+    counter += 1
+    if(counter == 12):
+        counter = 0
+        actual_frame += 1
+        if(actual_frame == 4):
+            actual_frame = 0
+    
+    keys=pygame.key.get_pressed()        
+    for key in direction:
+        if(keys[key]):
+            player_coord+=direction[key]*5
+            if(key == pygame.K_z):
+                heroImg=frameHaut[actual_frame]
+            
+            elif(key == pygame.K_q):
+                heroImg=frameGauche[actual_frame]
+
+            elif(key == pygame.K_s):
+                heroImg=frameBas[actual_frame]
+                
+            elif(key == pygame.K_d):
+                heroImg=frameDroite[actual_frame]
+            
+            break
+        
+    screen.blit(heroImg, player_coord)
+    pygame.display.flip()
+    clock.tick(60)
+    pygame.display.set_caption(str(int(clock.get_fps())))
 
 
