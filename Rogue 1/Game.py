@@ -11,6 +11,8 @@ from Element import Element
 from Equipment import Equipment 
 import copy
 from getch import getch
+import pygame
+
 
 def heal(creature):
     creature.hp+=3
@@ -25,7 +27,7 @@ def teleport(creature, unique):
 
 class Game(object):
     
-    equipments = { 0: [ Equipment("potion","!",lambda h : heal(h)), Equipment("gold","o") ], 1: [ Equipment("sword"), Equipment("bow"),Equipment("potion","!",lambda h : teleport(h,True)) ], 2: [ Equipment("chainmail") ], 3: [Equipment("portoloin","w",lambda h : teleport(h,False))] }
+    equipments = { 0: [ Equipment("potion",pygame.image.load("pomme.png"),lambda h : heal(h)), Equipment("gold",pygame.image.load("gold.png")) ], 1: [ Equipment("sword"), Equipment("bow"),Equipment("potion","!",lambda h : teleport(h,True)) ], 2: [ Equipment("chainmail") ], 3: [Equipment("portoloin","w",lambda h : teleport(h,False))] }
     monsters = { 0: [ Creature("Goblin",4), Creature("Bat",2,"W") ], 1: [ Creature("Ork",6,strength=2), Creature("Blob",10) ], 5: [ Creature("Dragon",20,strength=3) ] }
     _actions={'z': lambda h : theGame()._floor.move(h,Coord(0,-1)), 's': lambda h : theGame()._floor.move(h,Coord(0,1)), 'd': lambda h : theGame()._floor.move(h,Coord(1,0)), 'q': lambda h: theGame()._floor.move(h,Coord(-1,0)),'i' : lambda h : theGame().addMessage(h.fullDescription()),'k' : lambda h : h.__setattr__("_hp",0), ' ' : lambda h : theGame(),'u' : lambda h : h.use(theGame().select(h._inventory))  }
     

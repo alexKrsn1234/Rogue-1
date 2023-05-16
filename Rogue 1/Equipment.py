@@ -2,8 +2,8 @@ from Element import Element
 
 class Equipment(Element):
     
-    def __init__ (self,name,abbrv="",usage=None ):
-        super().__init__(name,abbrv)
+    def __init__ (self,name,abbrv="",Im=None,usage=None ):
+        super().__init__(name,abbrv,Im)
         self.usage=usage
         
     def meet(self,hero):

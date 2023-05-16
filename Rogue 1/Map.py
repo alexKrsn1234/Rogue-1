@@ -8,7 +8,9 @@ from Stairs import Stairs
 import random
 
 class Map:
+    groundIm=pygame.image.load("sol.png")
     ground="."
+    emptyIm=pygame.image.load("mur.png")
     empty=" "
     dir={'z': Coord(0,-1), 's': Coord(0,1), 'd': Coord(1,0), 'q': Coord(-1,0)}
     def __init__(self,size=20,hero=None,nbrooms=7):

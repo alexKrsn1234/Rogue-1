@@ -2,8 +2,8 @@ from Element import Element
 
 class Creature(Element):
     
-    def __init__(self,name,hp,abbrv="",strength=-1):
-        super().__init__(name,abbrv)
+    def __init__(self,name,hp,abbrv="",Im=None,strength=-1):
+        super().__init__(name,abbrv,Im)
         self.hp=hp
         self.strength=strength
         if self.strength==-1:

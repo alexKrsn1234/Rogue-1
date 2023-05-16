@@ -3,8 +3,8 @@ from Equipment import Equipment
 from Creature import Creature
 
 class Hero(Creature):
-    def __init__(self,name="Hero",hp=10,abbrv="@",strength=2,inventory=None):
-        super().__init__(name,hp,abbrv,strength)
+    def __init__(self,name="Hero",hp=10,abbrv="@",Im=pygame.image.load("hero.png"),strength=2,inventory=None):
+        super().__init__(name,hp,abbrv,Im,strength)
         self._inventory=inventory
         if self._inventory==None:
             self._inventory=[]
