@@ -1,6 +1,7 @@
 import pygame
 import time
 from Img import *
+from Map import Map
 
 #Init :
 pygame.init()
@@ -43,11 +44,11 @@ clock=pygame.time.Clock()
 player_coord = vec(300,300)
 actual_frame = 0
 counter = 0
-m = [["w", "w", "w", "w"], ["w", ".", ".", "."], ["w", ".", ".", "."], ["w", ".", ".", "."]]
+m = Map(5)
 while 1:
     #RGB : Red Green Blue
     screen.fill((50,33,37))
-    
+    m.draw()
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
             pygame.quit()
@@ -82,12 +83,6 @@ while 1:
             
             break
         
-    for ligne in range(len(m)):
-        for case in range(len(m[ligne])):
-            if(m[ligne][case] == "w"):
-                screen.blit(wall, vec(ligne, case)*48)
-            elif(m[ligne][case] == "."):
-                screen.blit(sol, vec(ligne, case)*48)
     screen.blit(heroImg, player_coord)
     pygame.display.flip()
     clock.tick(60)

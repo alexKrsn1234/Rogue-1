@@ -6,13 +6,41 @@ from Equipment import Equipment
 from Room import Room
 from Stairs import Stairs
 import random
+import pygame
+import time
+#Init :
+pygame.init()
+#pygame.mixer.init()
+#pygame.mixer.music.load(r'audio\Menu_Music.mp3')
+#pygame.mixer.music.play(-1)
+#   pygame.mixer.music.set_volume(1.0)
+vec = pygame.math.Vector2
+#Title and Icon :
+pygame.display.set_caption("Hunger Games")
+icon=pygame.image.load("./Img/icon.png")
+pygame.display.set_icon(icon)
+
+#Screen :
+
+
 
 class Map:
-    groundIm=pygame.image.load("sol.png")
+    groundIm=pygame.image.load("./Img/Sol.png")
     ground="."
-    emptyIm=pygame.image.load("mur.png")
+    emptyIm=pygame.image.load("./Img/mur.png")
     empty=" "
+    frameHaut=[pygame.image.load("./Img/zelda_"+str(i)+"_haut.png") for i in range(4)]
+    frameBas=[pygame.image.load("./Img/zelda_"+str(i)+"_bas.png") for i in range(4)]
+    frameDroite=[pygame.image.load("./Img/zelda_"+str(i)+"_droite.png") for i in range(4)]
+    frameGauche =[pygame.image.load("./Img/zelda_"+str(i)+"_gauche.png") for i in range(4)]
+    direction = {pygame.K_z:vec(0,-1) , pygame.K_d:vec(1,0), pygame.K_q:vec(-1,0), pygame.K_s:vec(0,1)}
+    heroImg0=pygame.image.load("./Img/zelda_0.png")
+    clock=pygame.time.Clock()
+    player_coord = vec(300,300)
+    actual_frame = 0
+    counter = 0
     dir={'z': Coord(0,-1), 's': Coord(0,1), 'd': Coord(1,0), 'q': Coord(-1,0)}
+
     def __init__(self,size=20,hero=None,nbrooms=7):
         self.size=size
         self._hero=hero
@@ -30,8 +58,8 @@ class Map:
         #self._mat[self.pos.y][self.pos.x]=self._hero
         self._elem={}
         self.put(self._rooms[0].center(),self._hero)
-        for i in self._rooms:
-            i.decorate(self)
+        #for i in self._rooms:
+         #   i.decorate(self)
         
     def checkCoord(self,c) :
         if not(isinstance(c,Coord)):
@@ -180,16 +208,15 @@ class Map:
                 self.addRoom(room)
 
     def draw(self):
-        import pygame
-        for i in range (self.size) :
-            for a in range (self.size) :
-                if self._mat[i][a]==Map.ground:
-                    pygame.draw.rect(self.surface, (255,255,255), (a*self.size,i*self.size,self.size,self.size))
-                elif self._mat[i][a]==Map.empty:
-                    pygame.draw.rect(self.surface, (0,0,0), (a*self.size,i*self.size,self.size,self.size))
-                else:
-                    pygame.draw.rect(self.surface, (0,255,0), (a*self.size,i*self.size,self.size,self.size))
-        self.surface.blit(self.groundIm,(0,0))
+        for ligne in range (len(self._mat)) :
+            for case in range (len(self._mat[ligne])) :
+                if self._mat[ligne][case]==Map.ground:
+                    screen.blit(self.groundIm, vec(ligne, case)*48)
+                elif self._mat[ligne][case]==Map.empty:
+                    screen.blit(self.groundIm, vec(ligne, case)*48)
+    
 
 
-
+screen=pygame.display.set_mode((800,600)) 
+m=Map()
+m.draw()
