@@ -179,6 +179,17 @@ class Map:
             if self.intersectNone(room) :
                 self.addRoom(room)
 
+    def draw(self):
+        import pygame
+        for i in range (self.size) :
+            for a in range (self.size) :
+                if self._mat[i][a]==Map.ground:
+                    pygame.draw.rect(self.surface, (255,255,255), (a*self.size,i*self.size,self.size,self.size))
+                elif self._mat[i][a]==Map.empty:
+                    pygame.draw.rect(self.surface, (0,0,0), (a*self.size,i*self.size,self.size,self.size))
+                else:
+                    pygame.draw.rect(self.surface, (0,255,0), (a*self.size,i*self.size,self.size,self.size))
+        self.surface.blit(self.groundIm,(0,0))
 
 
 
