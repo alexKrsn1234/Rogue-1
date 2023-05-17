@@ -25,9 +25,9 @@ pygame.display.set_icon(icon)
 
 
 class Map:
-    groundIm=pygame.image.load("./Img/Sol.png")
+    groundIm=pygame.image.load("./Img/sol1.png")
     ground="."
-    emptyIm=pygame.image.load("./Img/mur.png")
+    emptyIm=pygame.image.load("./Img/mur1.png")
     empty=" "
     frameHaut=[pygame.image.load("./Img/zelda_"+str(i)+"_haut.png") for i in range(4)]
     frameBas=[pygame.image.load("./Img/zelda_"+str(i)+"_bas.png") for i in range(4)]
@@ -212,11 +212,12 @@ class Map:
             for case in range (len(self._mat[ligne])) :
                 if self._mat[ligne][case]==Map.ground:
                     screen.blit(self.groundIm, vec(ligne, case)*48)
-                elif self._mat[ligne][case]==Map.empty:
-                    screen.blit(self.groundIm, vec(ligne, case)*48)
-    
-
-
+                elif self.get(Coord(case+1,ligne))==Map.empty and (Coord(case+1,ligne) in self):
+                    screen.blit(self.emptyIm, vec(ligne, case)*48)
+                elif self.get(Coord(case-1,ligne))==Map.empty and (Coord(case-1,ligne) in self):
+                    screen.blit(self.emptyIm, vec(ligne, case)*48)
+                elif self.get(Coord(case,ligne+1))==Map.empty and (Coord(case,ligne+1) in self):
+                    screen.blit(self.emptyIm, vec(ligne, case)*48)
+                elif self.get(Coord(case,ligne-1))==Map.empty and (Coord(case,ligne-1) in self):
+                    screen.blit(self.emptyIm, vec(ligne, case)*48)
 screen=pygame.display.set_mode((800,600)) 
-m=Map()
-m.draw()
