@@ -20,6 +20,9 @@ class Coord:
     def __sub__(self,other):
         return Coord(self.x-other.x,self.y-other.y)
         
+    def __mul__(self,other):
+        return Coord(self.x*other,self.y*other)
+    
     def distance(self,other):
         d=math.sqrt(math.pow(other.x-self.x,2)+math.pow(other.y-self.y,2))
         return d

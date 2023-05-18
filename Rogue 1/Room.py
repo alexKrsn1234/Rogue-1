@@ -2,7 +2,7 @@ from Coord import Coord
 import random
 import pygame
 from Creature import Creature
-
+from Equipment import Equipment
 class Room (object):
     
     def __init__(self,c1,c2):
@@ -48,12 +48,8 @@ class Room (object):
         return c
     
     def decorate(self,map):
-        from Game import theGame
         c1=self.randEmptyCoord(map)
-        e=theGame().randEquipment()
-        map.put(c1,e)
+        map.put(c1,Equipment(*Equipment.randEquipment()))
         c2=self.randEmptyCoord(map)
-        m=theGame().randMonster()
-        map.put(c2,m)
-        m.draw(c2.x,c2.y)
+        map.put(c2,Creature(*Creature.randMonster()))
     

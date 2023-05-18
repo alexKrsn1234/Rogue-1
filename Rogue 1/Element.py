@@ -1,6 +1,9 @@
 import pygame
+import random
+import copy
 
 class Element(object):
+    aaa = 4
     def __init__(self,name,abbrv=""):
        self.name=name
        self.abbrv=abbrv
@@ -17,8 +20,15 @@ class Element(object):
     def meet(self,hero):
         raise NotImplementedError("Not implemented yet")
     
+    @staticmethod
+    def randElement(collection):
+        X=random.expovariate(1/2)
+        for x in collection :
+            if x<X :
+                indice=x
+        l=random.choice(collection[indice])
+        return l
 
 
     
-
 

@@ -8,6 +8,7 @@ from Stairs import Stairs
 import random
 import pygame
 import time
+
 #Init :
 pygame.init()
 #pygame.mixer.init()
@@ -37,12 +38,12 @@ class Map:
     direction = {pygame.K_z:vec(0,-1) , pygame.K_d:vec(1,0), pygame.K_q:vec(-1,0), pygame.K_s:vec(0,1)}
     heroImg0=pygame.image.load("./Img/zelda_0.png")
     clock=pygame.time.Clock()
-    player_coord = vec(300,300)
+    player_coord = Coord(300,300)
     actual_frame = 0
     counter = 0
-    dir={'z': Coord(0,-1), 's': Coord(0,1), 'd': Coord(1,0), 'q': Coord(-1,0)}
+    dir={pygame.K_z: Coord(0,-1), pygame.K_s: Coord(0,1), pygame.K_d: Coord(1,0), pygame.K_q: Coord(-1,0)}
 
-    def __init__(self,size=20,hero=None,nbrooms=7):
+    def __init__(self,size=16,hero=None,nbrooms=7):
         self.size=size
         self._hero=hero
         self._mat=[]
@@ -59,8 +60,10 @@ class Map:
         #self._mat[self.pos.y][self.pos.x]=self._hero
         self._elem={}
         self.put(self._rooms[0].center(),self._hero)
+        self.hero.map_pos = self._rooms[0].center()*48
         for i in self._rooms:
            i.decorate(self)
+        print(self)
         
     def checkCoord(self,c) :
         if not(isinstance(c,Coord)):
@@ -128,6 +131,8 @@ class Map:
                 self._mat[orig.y][orig.x] = Map.ground
                 self._mat[dest.y][dest.x] = e
                 self._elem[e] = dest
+                if(isinstance(e, Hero)):
+                    self.hero.map_pos = Coord(dest.x, dest.y)*48
             elif self.get(dest) != Map.empty and self.get(dest).meet(e) and self.get(dest) != self.hero:
                 self.rm(dest)
     
@@ -196,8 +201,8 @@ class Map:
             self.reach()
             
     def randRoom(self):
-        x1=random.randint(0,self.size-3)
-        y1=random.randint(0,self.size-3)
+        x1=random.randint(1,self.size-3)
+        y1=random.randint(1,self.size-3)
         l=random.randint(3,8)
         h=random.randint(3,8)
         return Room(Coord(x1,y1),Coord(min(x1+l,self.size-1),min(y1+h,self.size-1)))
@@ -207,55 +212,26 @@ class Map:
             room=self.randRoom()
             if self.intersectNone(room) :
                 self.addRoom(room)
+    
+    def key_down_event(self, event):
+        self.move(self.hero, Map.dir[event])
+        self.moveAllMonsters()
+        print(self)
 
     def draw(self):
 
         for ligne in range (len(self._mat)) :
             for case in range (len(self._mat[ligne])) :
-                
-                if self._mat[ligne][case]=="E":
-                    screen.blit(self.stairsIm, vec(ligne+1, case+1)*48)
+                if self.get(Coord(case, ligne))=="E":
+                    screen.blit(self.stairsIm, vec(case, ligne)*48)
+                    
 
 
-                elif self._mat[ligne][case]!=Map.empty and self._mat[ligne][case]!="E":
-                    screen.blit(self.groundIm, vec(ligne+1, case+1)*48)
-                    if not(Coord(case+1,ligne) in self):
-                        screen.blit(self.emptyIm, vec(ligne+1, case+2)*48)
-                    if not(Coord(case-1,ligne) in self):
-                        screen.blit(self.emptyIm, vec(ligne+1, case)*48)
-                    if not(Coord(case,ligne+1) in self):
-                        screen.blit(self.emptyIm, vec(ligne+2, case+1)*48)
-                    if not(Coord(case,ligne-1) in self):
-                        screen.blit(self.emptyIm, vec(ligne, case+1)*48)
+                elif self._mat[case][ligne]!=Map.empty:
+                    screen.blit(self.groundIm, vec(ligne, case)*48)
                     
                     
-                elif self._mat[ligne][case]==Map.empty:
-                    if (Coord(case+1,ligne) in self):
-                        if self.get(Coord(case+1,ligne))==Map.ground :
-                            screen.blit(self.emptyIm, vec(ligne+1, case+1)*48)
-                    if (Coord(case-1,ligne) in self):
-                        if self.get(Coord(case-1,ligne))==Map.ground :
-                            screen.blit(self.emptyIm, vec(ligne+1, case+1)*48)
-                    if (Coord(case,ligne+1) in self):
-                        if self.get(Coord(case,ligne+1))==Map.ground :
-                            screen.blit(self.emptyIm, vec(ligne+1, case+1)*48)
-                    if (Coord(case,ligne-1) in self):
-                        if self.get(Coord(case,ligne-1))==Map.ground :
-                            screen.blit(self.emptyIm, vec(ligne+1, case+1)*48)
-                    if (Coord(case+1,ligne+1) in self):
-                        if self.get(Coord(case+1,ligne+1))==Map.ground :
-                            screen.blit(self.emptyIm, vec(ligne+1, case+1)*48)
-                    if (Coord(case-1,ligne-1) in self):
-                        if self.get(Coord(case-1,ligne-1))==Map.ground :
-                            screen.blit(self.emptyIm, vec(ligne+1, case+1)*48)
-                    if (Coord(case-1,ligne+1) in self):
-                        if self.get(Coord(case-1,ligne+1))==Map.ground :
-                            screen.blit(self.emptyIm, vec(ligne+1, case+1)*48)
-                    if (Coord(case+1,ligne-1) in self):
-                        if self.get(Coord(case+1,ligne-1))==Map.ground :
-                            screen.blit(self.emptyIm, vec(ligne+1, case+1)*48)
                 
-                
-                
+
 
 screen=pygame.display.set_mode((800,600)) 

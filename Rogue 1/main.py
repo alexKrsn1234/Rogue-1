@@ -1,13 +1,14 @@
 import pygame
 import time
+import random
 from Img import *
 from Map import Map
-from Coord import *
-from Creature import Creature
-from Game import Game
+from Coord import Coord
+from Stairs import Stairs
+from Hero import Hero
+
 #Init :
 pygame.init()
-vec = pygame.math.Vector2
 #Title and Icon :
 pygame.display.set_caption("Hunger Games")
 icon=pygame.image.load("./Img/icon.png")
@@ -21,60 +22,99 @@ heroImg=pygame.image.load("./Img/zelda_0.png")
 mobImg=pygame.image.load("./Img/magicien.png")
 wall = pygame.image.load("./Img/mur.png")
 sol = pygame.image.load("./Img/Sol.png")
-
-
+le_mur = pygame.image.load("./Img/la_muraille_du_kazakstan.png")
 frameHaut=[pygame.image.load("./Img/zelda_"+str(i)+"_haut.png") for i in range(4)]
 frameBas=[pygame.image.load("./Img/zelda_"+str(i)+"_bas.png") for i in range(4)]
 frameDroite=[pygame.image.load("./Img/zelda_"+str(i)+"_droite.png") for i in range(4)]
 frameGauche =[pygame.image.load("./Img/zelda_"+str(i)+"_gauche.png") for i in range(4)]
 #Game Loop :
-direction = {pygame.K_z:vec(0,-1) , pygame.K_d:vec(1,0), pygame.K_q:vec(-1,0), pygame.K_s:vec(0,1)}
+direction = {pygame.K_z:Coord(0,-1) , pygame.K_d:Coord(1,0), pygame.K_q:Coord(-1,0), pygame.K_s:Coord(0,1)}
 heroImg0=pygame.image.load("./Img/zelda_0.png")
 clock=pygame.time.Clock()
-player_coord = vec(300,300)
-actual_frame = 0
-counter = 0
-m = Map(15)
-while 1:
-    #RGB : Red Green Blue
-    screen.fill((50,33,37))
-    m.draw()
-    for event in pygame.event.get():
-        if event.type==pygame.QUIT:
-            pygame.quit()
-            exit()
-    
-        if event.type==pygame.KEYUP :
-            heroImg=heroImg0
-            pass
-    
-    counter += 1
-    if(counter == 12):
-        counter = 0
-        actual_frame += 1
-        if(actual_frame == 4):
-            actual_frame = 0
-    
-    keys=pygame.key.get_pressed()        
-    for key in direction:
-        if(keys[key]):
-            player_coord+=direction[key]*5
-            if(key == pygame.K_z):
-                heroImg=frameHaut[actual_frame]
-            
-            elif(key == pygame.K_q):
-                heroImg=frameGauche[actual_frame]
 
-            elif(key == pygame.K_s):
-                heroImg=frameBas[actual_frame]
-                
-            elif(key == pygame.K_d):
-                heroImg=frameDroite[actual_frame]
+def heal(creature):
+    creature.hp+=3
+    return True
 
-            break
+def teleport(m, creature, unique):
+    m.rm(m.pos(creature))
+    r=random.choice(m._rooms)
+    c=r.randEmptyCoord(m)
+    m.put(c,creature)
+    return unique
 
+
+
+class Game(object):
+    screen=pygame.display.set_mode((864,864))
+    
+    
+    _actions = {"z" : lambda hero: theGame()._floor.move(hero, Coord(0, -1)),
+                "q" : lambda hero: theGame()._floor.move(hero, Coord(-1, 0)),
+                "s" : lambda hero: theGame()._floor.move(hero, Coord(0, 1)),
+                "d" : lambda hero: theGame()._floor.move(hero, Coord(1, 0)),
+                "i" : lambda hero: theGame().addMessage(hero.fullDescription()),
+                "k" : lambda hero: hero.kill(),
+                " " : lambda hero: None,
+                "u" : lambda hero: hero.use(theGame().select(hero.INVENTORY))
+    }
+    def __init__(self,hero=None,level=1,message=None):
+        self.hero=hero
+        if self.hero==None:
+            self.hero=Hero()
+        self._level=level
+        self._hero=self.hero
+        self.buildFloor()
+        self._message=message
+        if self._message==None :
+            self._message=[]
+
+    def buildFloor(self):
+        self._floor=Map(hero=self._hero)
+        self._floor.put(self._floor._rooms[-1].center(),Stairs())
+    
+    def addMessage(self,m):
+        self._message.append(m)
+    
+    def readMessages(self):
+        totm=""
+        for i in range(len(self._message)) :
+            totm+=self._message[i]+". "
+        self._message=[]
+        return totm
         
-    screen.blit(heroImg, player_coord)
-    pygame.display.flip()
-    clock.tick(60)
-    pygame.display.set_caption(str(int(clock.get_fps())))
+    
+        
+
+    def play(self):
+        while 1:
+            #RGB : Red Green Blue
+            screen.fill((50,33,37))
+            for event in pygame.event.get():
+                if event.type==pygame.QUIT:
+                    pygame.quit()
+                    exit()
+            
+                if event.type==pygame.KEYDOWN:
+                    if(event.key in (pygame.K_z, pygame.K_s, pygame.K_q, pygame.K_d)):
+                        theGame()._floor.key_down_event(event.key)
+                    
+            
+            
+            
+            screen.blit(le_mur, (0,0))
+            theGame()._floor.draw()
+            screen.blit(heroImg, (theGame()._floor.hero.map_pos.x, theGame()._floor.hero.map_pos.y))
+            pygame.display.flip()
+            clock.tick(60)
+            pygame.display.set_caption(str(int(clock.get_fps())))
+    
+def theGame(game=Game()) :
+    return game
+
+
+theGame().play()
+
+
+                
+

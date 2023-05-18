@@ -5,6 +5,8 @@ from Img import *
 vec = pygame.math.Vector2
 
 class Creature(Element):
+    monsters = {0: [("Goblin", 4), ("Bat", 2, "W")],
+                1: [("Ork", 6, "", None, 2), ("Blob", 10)], 5: [("Dragon", 20, "", None, 3)]}
     
     def __init__(self,name,hp,abbrv="",Im=None,strength=-1):
         super().__init__(name,abbrv)
@@ -12,18 +14,16 @@ class Creature(Element):
         self.strength=strength
         if self.strength==-1:
             self.strength=1
-        self.Im=pygame.image.load("./Img/"+str(self.name)+".png")
+        self.image = Im
+
     def description(self):
         return super().description()+"("+str(self.hp)+")"
     
     def meet(self,other):
-        from Game import theGame
         self.hp-=other.strength
-        m="The "+other.name+" hits the "+self.description()
-        theGame().addMessage(m)
         return  (self.hp<=0)
 
-    def draw(self,x,y):
-        from Game import theGame
-        from main import screen
-        theGame().screen.blit(self.Im, vec(x, y)*48)
+    @staticmethod
+    def randMonster():
+        return Element.randElement(Creature.monsters)
+    

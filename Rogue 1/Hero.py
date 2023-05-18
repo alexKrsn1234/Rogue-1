@@ -1,5 +1,3 @@
-from Element import Element
-from Equipment import Equipment
 from Creature import Creature
 import pygame
 from Img import *
@@ -12,18 +10,15 @@ class Hero(Creature):
             self._inventory=[]
         self.name=self.name
         self.Img=pygame.image.load("./Img/zelda_0.png")
+        self.map_pos = None
 
     def description(self):
        return super().description()+str(self._inventory)
 
     def take(self,e):
-        if not (isinstance(e,Equipment)) :
-            raise TypeError('Not a Equipment')
         return self._inventory.append(e)
     
     def use(self,item):
-        if not (isinstance(item,Equipment)) :
-            raise TypeError('Not a Equipment')
         if not (item in self._inventory):
             raise ValueError('Not in inventory')
         if item.use(self) :
@@ -36,3 +31,8 @@ class Hero(Creature):
         l+=f"> INVENTORY : {[i.name for i in self._inventory]}"
         return l
         
+    def update(self):
+        pass
+
+    def draw(self):
+        pass
