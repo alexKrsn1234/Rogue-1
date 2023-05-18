@@ -1,12 +1,12 @@
 import pygame
 
 class Element(object):
-    def __init__(self,name,abbrv="",Im=None):
+    def __init__(self,name,abbrv=""):
        self.name=name
        self.abbrv=abbrv
        if abbrv=="" :
            self.abbrv=name[0]
-       self.Im=Im
+       
     
     def __repr__(self) :
         return self.abbrv
@@ -16,6 +16,8 @@ class Element(object):
     
     def meet(self,hero):
         raise NotImplementedError("Not implemented yet")
+    
+
 
     
 

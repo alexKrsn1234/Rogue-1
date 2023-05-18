@@ -1,6 +1,7 @@
 from Coord import Coord
 import random
-
+import pygame
+from Creature import Creature
 
 class Room (object):
     
@@ -54,5 +55,5 @@ class Room (object):
         c2=self.randEmptyCoord(map)
         m=theGame().randMonster()
         map.put(c2,m)
-    
+        m.draw(c2.x,c2.y)
     

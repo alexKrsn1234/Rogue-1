@@ -5,13 +5,14 @@ import pygame
 from Img import *
 
 class Hero(Creature):
-    def __init__(self,name="Hero",hp=10,abbrv="@",Im=pygame.image.load("./Img/zelda_0.png"),strength=2,inventory=None):
-        super().__init__(name,hp,abbrv,Im,strength)
+    def __init__(self,name="Hero",hp=10,abbrv="@",Img=None,strength=2,inventory=None):
+        super().__init__(name,hp,abbrv,strength)
         self._inventory=inventory
         if self._inventory==None:
             self._inventory=[]
         self.name=self.name
-            
+        self.Img=pygame.image.load("./Img/zelda_0.png")
+
     def description(self):
        return super().description()+str(self._inventory)
 

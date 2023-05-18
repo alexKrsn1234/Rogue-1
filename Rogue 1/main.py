@@ -3,7 +3,8 @@ import time
 from Img import *
 from Map import Map
 from Coord import *
-
+from Creature import Creature
+from Game import Game
 #Init :
 pygame.init()
 vec = pygame.math.Vector2
@@ -13,24 +14,14 @@ icon=pygame.image.load("./Img/icon.png")
 pygame.display.set_icon(icon)
 
 #Screen :
-<<<<<<< Updated upstream
-screen=pygame.display.set_mode((960,960))
-=======
 screen=pygame.display.set_mode((864,864))
->>>>>>> Stashed changes
+
 
 heroImg=pygame.image.load("./Img/zelda_0.png")
 mobImg=pygame.image.load("./Img/magicien.png")
 wall = pygame.image.load("./Img/mur.png")
 sol = pygame.image.load("./Img/Sol.png")
-playerX=400
-playerY=300
-monsterX=0
-monsterY=0
-playerX_change=0
-playerY_change=0
-monsterY_change=0
-monsterX_change=0
+
 
 frameHaut=[pygame.image.load("./Img/zelda_"+str(i)+"_haut.png") for i in range(4)]
 frameBas=[pygame.image.load("./Img/zelda_"+str(i)+"_bas.png") for i in range(4)]
@@ -43,7 +34,7 @@ clock=pygame.time.Clock()
 player_coord = vec(300,300)
 actual_frame = 0
 counter = 0
-m = Map(17)
+m = Map(15)
 while 1:
     #RGB : Red Green Blue
     screen.fill((50,33,37))
@@ -53,7 +44,7 @@ while 1:
             pygame.quit()
             exit()
     
-        if event.type==pygame.KEYDOWN :
+        if event.type==pygame.KEYUP :
             heroImg=heroImg0
             pass
     
@@ -79,8 +70,9 @@ while 1:
                 
             elif(key == pygame.K_d):
                 heroImg=frameDroite[actual_frame]
-            
+
             break
+
         
     screen.blit(heroImg, player_coord)
     pygame.display.flip()

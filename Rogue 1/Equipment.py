@@ -4,8 +4,9 @@ import pygame
 class Equipment(Element):
     
     def __init__ (self,name,abbrv="",Im=None,usage=None ):
-        super().__init__(name,abbrv,Im)
+        super().__init__(name,abbrv)
         self.usage=usage
+        self.Im=Im=pygame.image.load("./Img/"+str(self.name)+".png")
         
     def meet(self,hero):
         from Game import theGame
@@ -28,5 +29,7 @@ class Equipment(Element):
             theGame().addMessage("The "+str(self.name)+" is not usable")
             return False
     
-   # def draw(self,screen):
+    def draw(self):
+        from main import screen
+        theGame().screen.blit(self.Im,(self.x,self.y))
 

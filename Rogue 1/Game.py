@@ -13,6 +13,8 @@ import copy
 from getch import getch
 import pygame 
 
+vec = pygame.math.Vector2
+
 def heal(creature):
     creature.hp+=3
     return True
@@ -33,13 +35,13 @@ icon=pygame.image.load("./Img/icon.png")
 pygame.display.set_icon(icon)
 
 #Screen :
-screen=pygame.display.set_mode((800,600))
+
 
 class Game(object):
-    
-    equipments = { 0: [ Equipment("potion","!",lambda h : heal(h)), Equipment("gold","o") ], 1: [ Equipment("sword"), Equipment("bow"),Equipment("potion","!",lambda h : teleport(h,True)) ], 2: [ Equipment("chainmail") ], 3: [Equipment("portoloin","w",lambda h : teleport(h,False))] }
-    monsters = { 0: [ Creature("Goblin",4), Creature("Bat",2,"W") ], 1: [ Creature("Ork",6,strength=2), Creature("Blob",10) ], 5: [ Creature("Dragon",20,strength=3) ] }
-    _actions={pygame.K_z:vec(0,-1), pygame.K_s:vec(0,1), pygame.K_d:vec(1,0),pygame.K_q:vec(-1,0), pygame.key_i : lambda h : theGame().addMessage(h.fullDescription()),pygame.key_k: lambda h : h.__setattr__("_hp",0),pygame.key_space: lambda h : theGame(),'u' : lambda h : h.use(theGame().select(h._inventory))  }
+    screen=pygame.display.set_mode((800,600))
+    equipments = { 0: [ Equipment("potion","!",lambda h : heal(h)), Equipment("gold","o") ], 1: [ Equipment("sword"), Equipment("bow")]}#,Equipment("potion","!",lambda h : teleport(h,True)) ], 2: [ Equipment("chainmail") ], 3: [Equipment("portoloin","w",lambda h : teleport(h,False))] }
+    monsters = { 0: [ Creature("Goblin",4)]}#, Creature("Bat",2,"W") ], 1: [ Creature("Ork",6,strength=2), Creature("Blob",10) ], 5: [ Creature("Dragon",20,strength=3) ] }
+    _actions={pygame.K_z:vec(0,-1), pygame.K_s:vec(0,1), pygame.K_d:vec(1,0),pygame.K_q:vec(-1,0), pygame.K_i : lambda h : theGame().addMessage(h.fullDescription()),pygame.K_k: lambda h : h.__setattr__("_hp",0),pygame.K_ESCAPE: lambda h : theGame(),pygame.K_u : lambda h : h.use(theGame().select(h._inventory))  }
     
     def __init__(self,hero=None,level=1,floor=None,message=None):
         self.hero=hero

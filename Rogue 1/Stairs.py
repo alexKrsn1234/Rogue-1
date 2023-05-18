@@ -14,4 +14,3 @@ class Stairs(Element):
         from Game import theGame
         theGame().buildFloor()
         theGame().addMessage("The "+str(other.name)+" goes down")
-        

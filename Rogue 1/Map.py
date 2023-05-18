@@ -29,6 +29,7 @@ class Map:
     ground="."
     emptyIm=pygame.image.load("./Img/mur1.png")
     empty=" "
+    stairsIm=pygame.image.load("./Img/escaliers.png")
     frameHaut=[pygame.image.load("./Img/zelda_"+str(i)+"_haut.png") for i in range(4)]
     frameBas=[pygame.image.load("./Img/zelda_"+str(i)+"_bas.png") for i in range(4)]
     frameDroite=[pygame.image.load("./Img/zelda_"+str(i)+"_droite.png") for i in range(4)]
@@ -58,8 +59,8 @@ class Map:
         #self._mat[self.pos.y][self.pos.x]=self._hero
         self._elem={}
         self.put(self._rooms[0].center(),self._hero)
-        #for i in self._rooms:
-         #   i.decorate(self)
+        for i in self._rooms:
+           i.decorate(self)
         
     def checkCoord(self,c) :
         if not(isinstance(c,Coord)):
@@ -208,44 +209,53 @@ class Map:
                 self.addRoom(room)
 
     def draw(self):
+
         for ligne in range (len(self._mat)) :
             for case in range (len(self._mat[ligne])) :
-                if self._mat[ligne][case]==Map.ground:
-                    screen.blit(self.groundIm, vec(ligne, case)*48)
+                
+                if self._mat[ligne][case]=="E":
+                    screen.blit(self.stairsIm, vec(ligne+1, case+1)*48)
+
+
+                elif self._mat[ligne][case]!=Map.empty and self._mat[ligne][case]!="E":
+                    screen.blit(self.groundIm, vec(ligne+1, case+1)*48)
                     if not(Coord(case+1,ligne) in self):
-                        screen.blit(self.emptyIm, vec(ligne+1, case)*48)
+                        screen.blit(self.emptyIm, vec(ligne+1, case+2)*48)
                     if not(Coord(case-1,ligne) in self):
-                        screen.blit(self.emptyIm, vec(ligne-1, case)*48)
-                    if (Coord(case,ligne+1) in self):
+                        screen.blit(self.emptyIm, vec(ligne+1, case)*48)
+                    if not(Coord(case,ligne+1) in self):
+                        screen.blit(self.emptyIm, vec(ligne+2, case+1)*48)
+                    if not(Coord(case,ligne-1) in self):
                         screen.blit(self.emptyIm, vec(ligne, case+1)*48)
-                    if (Coord(case,ligne-1) in self):
-                        screen.blit(self.emptyIm, vec(ligne, case-1)*48)
-                
-                
+                    
+                    
                 elif self._mat[ligne][case]==Map.empty:
                     if (Coord(case+1,ligne) in self):
                         if self.get(Coord(case+1,ligne))==Map.ground :
-                            screen.blit(self.emptyIm, vec(ligne, case)*48)
+                            screen.blit(self.emptyIm, vec(ligne+1, case+1)*48)
                     if (Coord(case-1,ligne) in self):
                         if self.get(Coord(case-1,ligne))==Map.ground :
-                            screen.blit(self.emptyIm, vec(ligne, case)*48)
+                            screen.blit(self.emptyIm, vec(ligne+1, case+1)*48)
                     if (Coord(case,ligne+1) in self):
                         if self.get(Coord(case,ligne+1))==Map.ground :
-                            screen.blit(self.emptyIm, vec(ligne, case)*48)
+                            screen.blit(self.emptyIm, vec(ligne+1, case+1)*48)
                     if (Coord(case,ligne-1) in self):
                         if self.get(Coord(case,ligne-1))==Map.ground :
-                            screen.blit(self.emptyIm, vec(ligne, case)*48)
+                            screen.blit(self.emptyIm, vec(ligne+1, case+1)*48)
                     if (Coord(case+1,ligne+1) in self):
                         if self.get(Coord(case+1,ligne+1))==Map.ground :
-                            screen.blit(self.emptyIm, vec(ligne, case)*48)
+                            screen.blit(self.emptyIm, vec(ligne+1, case+1)*48)
                     if (Coord(case-1,ligne-1) in self):
                         if self.get(Coord(case-1,ligne-1))==Map.ground :
-                            screen.blit(self.emptyIm, vec(ligne, case)*48)
+                            screen.blit(self.emptyIm, vec(ligne+1, case+1)*48)
                     if (Coord(case-1,ligne+1) in self):
                         if self.get(Coord(case-1,ligne+1))==Map.ground :
-                            screen.blit(self.emptyIm, vec(ligne, case)*48)
+                            screen.blit(self.emptyIm, vec(ligne+1, case+1)*48)
                     if (Coord(case+1,ligne-1) in self):
                         if self.get(Coord(case+1,ligne-1))==Map.ground :
-                            screen.blit(self.emptyIm, vec(ligne, case)*48)
-                    
+                            screen.blit(self.emptyIm, vec(ligne+1, case+1)*48)
+                
+                
+                
+
 screen=pygame.display.set_mode((800,600)) 
