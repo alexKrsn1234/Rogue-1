@@ -13,7 +13,11 @@ icon=pygame.image.load("./Img/icon.png")
 pygame.display.set_icon(icon)
 
 #Screen :
+<<<<<<< Updated upstream
 screen=pygame.display.set_mode((960,960))
+=======
+screen=pygame.display.set_mode((864,864))
+>>>>>>> Stashed changes
 
 heroImg=pygame.image.load("./Img/zelda_0.png")
 mobImg=pygame.image.load("./Img/magicien.png")
@@ -39,7 +43,7 @@ clock=pygame.time.Clock()
 player_coord = vec(300,300)
 actual_frame = 0
 counter = 0
-m = Map()
+m = Map(17)
 while 1:
     #RGB : Red Green Blue
     screen.fill((50,33,37))
