@@ -212,6 +212,16 @@ class Map:
             for case in range (len(self._mat[ligne])) :
                 if self._mat[ligne][case]==Map.ground:
                     screen.blit(self.groundIm, vec(ligne, case)*48)
+                    if not(Coord(case+1,ligne) in self):
+                        screen.blit(self.emptyIm, vec(ligne+1, case)*48)
+                    if not(Coord(case-1,ligne) in self):
+                        screen.blit(self.emptyIm, vec(ligne-1, case)*48)
+                    if (Coord(case,ligne+1) in self):
+                        screen.blit(self.emptyIm, vec(ligne, case+1)*48)
+                    if (Coord(case,ligne-1) in self):
+                        screen.blit(self.emptyIm, vec(ligne, case-1)*48)
+                
+                
                 elif self._mat[ligne][case]==Map.empty:
                     if (Coord(case+1,ligne) in self):
                         if self.get(Coord(case+1,ligne))==Map.ground :
@@ -237,4 +247,5 @@ class Map:
                     if (Coord(case+1,ligne-1) in self):
                         if self.get(Coord(case+1,ligne-1))==Map.ground :
                             screen.blit(self.emptyIm, vec(ligne, case)*48)
+                    
 screen=pygame.display.set_mode((800,600)) 
