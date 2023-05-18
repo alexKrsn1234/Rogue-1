@@ -1,4 +1,5 @@
 from Element import Element
+import pygame
 
 class Equipment(Element):
     
@@ -26,3 +27,6 @@ class Equipment(Element):
         else:
             theGame().addMessage("The "+str(self.name)+" is not usable")
             return False
+    
+   # def draw(self,screen):
+

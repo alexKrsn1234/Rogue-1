@@ -29,7 +29,7 @@ pygame.init()
 
 #Title and Icon :
 pygame.display.set_caption("Hunger Games")
-icon=pygame.image.load("Sword.png")
+icon=pygame.image.load("./Img/icon.png")
 pygame.display.set_icon(icon)
 
 #Screen :
@@ -39,8 +39,7 @@ class Game(object):
     
     equipments = { 0: [ Equipment("potion","!",lambda h : heal(h)), Equipment("gold","o") ], 1: [ Equipment("sword"), Equipment("bow"),Equipment("potion","!",lambda h : teleport(h,True)) ], 2: [ Equipment("chainmail") ], 3: [Equipment("portoloin","w",lambda h : teleport(h,False))] }
     monsters = { 0: [ Creature("Goblin",4), Creature("Bat",2,"W") ], 1: [ Creature("Ork",6,strength=2), Creature("Blob",10) ], 5: [ Creature("Dragon",20,strength=3) ] }
-    _actions={'z': lambda h : theGame()._floor.move(h,Coord(0,-1)), 's': lambda h : theGame()._floor.move(h,Coord(0,1)), 'd': lambda h : theGame()._floor.move(h,Coord(1,0)), 'q': lambda h: theGame()._floor.move(h,Coord(-1,0)),'i' : lambda h : theGame().addMessage(h.fullDescription()),'k' : lambda h : h.__setattr__("_hp",0), ' ' : lambda h : theGame(),'u' : lambda h : h.use(theGame().select(h._inventory))  }
-    
+    _actions={pygame.K_z:vec(0,-1), pygame.K_s:vec(0,1), pygame.K_d:vec(1,0),pygame.K_q:vec(-1,0), pygame.key_i : lambda h : theGame().addMessage(h.fullDescription()),pygame.key_k: lambda h : h.__setattr__("_hp",0),pygame.key_space: lambda h : theGame(),'u' : lambda h : h.use(theGame().select(h._inventory))  }
     
     def __init__(self,hero=None,level=1,floor=None,message=None):
         self.hero=hero

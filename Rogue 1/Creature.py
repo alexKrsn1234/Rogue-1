@@ -1,4 +1,5 @@
 from Element import Element
+import pygame
 
 class Creature(Element):
     
@@ -18,3 +19,6 @@ class Creature(Element):
         m="The "+other.name+" hits the "+self.description()
         theGame().addMessage(m)
         return  (self.hp<=0)
+
+    #def draw(self):
+

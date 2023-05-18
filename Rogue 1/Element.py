@@ -17,3 +17,6 @@ class Element(object):
     def meet(self,hero):
         raise NotImplementedError("Not implemented yet")
 
+    
+
+
