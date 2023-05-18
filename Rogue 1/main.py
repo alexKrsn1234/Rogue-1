@@ -13,7 +13,7 @@ icon=pygame.image.load("./Img/icon.png")
 pygame.display.set_icon(icon)
 
 #Screen :
-screen=pygame.display.set_mode((1200,1000))
+screen=pygame.display.set_mode((960,960))
 
 heroImg=pygame.image.load("./Img/zelda_0.png")
 mobImg=pygame.image.load("./Img/magicien.png")

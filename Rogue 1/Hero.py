@@ -2,6 +2,7 @@ from Element import Element
 from Equipment import Equipment
 from Creature import Creature
 import pygame
+from Img import *
 
 class Hero(Creature):
     def __init__(self,name="Hero",hp=10,abbrv="@",Im=pygame.image.load("./Img/zelda_0.png"),strength=2,inventory=None):
