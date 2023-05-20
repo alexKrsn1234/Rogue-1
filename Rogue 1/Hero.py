@@ -34,5 +34,5 @@ class Hero(Creature):
     def update(self):
         pass
 
-    def draw(self):
+    def draw(self,c):
         pass

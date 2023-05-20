@@ -4,9 +4,17 @@ from Img import *
 
 vec = pygame.math.Vector2
 
+Imgoblin=pygame.image.load("./Img/goblin.png")
+Imdemon=pygame.image.load("./Img/demon.png")
+Imbear=pygame.image.load("./Img/bear.png")
+Imshadow=pygame.image.load("./Img/shadow.png")
+
+screen=pygame.display.set_mode((864,864))
+
 class Creature(Element):
-    monsters = {0: [("Goblin", 4), ("Bat", 2, "W")],
-                1: [("Ork", 6, "", None, 2), ("Blob", 10)], 5: [("Dragon", 20, "", None, 3)]}
+    monsters = {0: [("goblin", 4), ("demon", 2, "D")],
+                1: [("bear", 6, "B", None, 2)], 5: [("shadow", 20, "S", None, 3)]}
+    
     
     def __init__(self,name,hp,abbrv="",Im=None,strength=-1):
         super().__init__(name,abbrv)
@@ -14,7 +22,14 @@ class Creature(Element):
         self.strength=strength
         if self.strength==-1:
             self.strength=1
-        self.image = Im
+        if self.name=="goblin":
+            self.Im=Imgoblin
+        elif self.name=="demon":
+            self.Im=Imdemon
+        elif self.name=="bear":
+            self.Im=Imbear
+        elif self.name=="shadow":
+            self.Im=Imshadow
 
     def description(self):
         return super().description()+"("+str(self.hp)+")"
@@ -26,4 +41,8 @@ class Creature(Element):
     @staticmethod
     def randMonster():
         return Element.randElement(Creature.monsters)
+    
+    def draw(self,c) :
+        screen.blit(self.Im,vec(c.x,c.y)*48)
+
     

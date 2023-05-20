@@ -3,6 +3,8 @@ import random
 import pygame
 from Creature import Creature
 from Equipment import Equipment
+
+
 class Room (object):
     
     def __init__(self,c1,c2):
@@ -48,6 +50,7 @@ class Room (object):
         return c
     
     def decorate(self,map):
+
         c1=self.randEmptyCoord(map)
         map.put(c1,Equipment(*Equipment.randEquipment()))
         c2=self.randEmptyCoord(map)
