@@ -9,15 +9,12 @@ Imdemon=pygame.image.load("./Img/demon.png")
 Imbear=pygame.image.load("./Img/bear.png")
 Imshadow=pygame.image.load("./Img/shadow.png")
 
-screen=pygame.display.set_mode((864,864))
-
 class Creature(Element):
     monsters = {0: [("goblin", 4), ("demon", 2, "D")],
                 1: [("bear", 6, "B", None, 2)], 5: [("shadow", 20, "S", None, 3)]}
     
-    
-    def __init__(self,name,hp,abbrv="",Im=None,strength=-1):
-        super().__init__(name,abbrv)
+    def __init__(self,name,hp,abbrv="",Im=None,strength=-1, coord = None):
+        super().__init__(name,coord, abbrv)
         self.hp=hp
         self.strength=strength
         if self.strength==-1:
@@ -42,7 +39,5 @@ class Creature(Element):
     def randMonster():
         return Element.randElement(Creature.monsters)
     
-    def draw(self,c) :
-        screen.blit(self.Im,vec(c.x,c.y)*48)
 
     

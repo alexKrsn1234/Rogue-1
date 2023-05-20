@@ -8,8 +8,9 @@ vec = pygame.math.Vector2
 class Stairs(Element):
     stairsIm=pygame.image.load("./Img/escaliers.png")
 
-    def __init__(self,name="Stairs",abbrv="E"):
-        super().__init__(name,abbrv)
+    def __init__(self,name="Stairs",coord=None,abbrv="E"):
+        super().__init__(name,coord,abbrv)
+        self.Im = Stairs.stairsIm
     
     def __repr__(self):
         return super().__repr__()
@@ -23,8 +24,6 @@ class Stairs(Element):
             from Map import Map
             theGame()._floor=Map(hero=Hero())
         
-    def draw(self,c):
-        screen.blit(self.starisIm, vec(c.x,c.y)*48)
 
 
 

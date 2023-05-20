@@ -33,7 +33,6 @@ class Map:
     direction = {pygame.K_z:vec(0,-1) , pygame.K_d:vec(1,0), pygame.K_q:vec(-1,0), pygame.K_s:vec(0,1)}
     heroImg0=pygame.image.load("./Img/zelda_0.png")
     stairsIm=pygame.image.load("./Img/escaliers.png")
-    clock=pygame.time.Clock()
     player_coord = Coord(300,300)
     dir={pygame.K_z: Coord(0,-1), pygame.K_s: Coord(0,1), pygame.K_d: Coord(1,0), pygame.K_q: Coord(-1,0)}
 
@@ -104,8 +103,6 @@ class Map:
             raise KeyError('Already placed')
         self._mat[c.y][c.x]=e
         self._elem[e]=c
-        if isinstance(e,Creature) :
-            e.draw(c)
         return self._elem
         
     def rm(self,c):
@@ -212,14 +209,14 @@ class Map:
         print(self)
 
     
-    def draw(self):
+    def draw(self, SCREEN):
 
         for ligne in range (len(self._mat)) :
             for case in range (len(self._mat[ligne])) :
                 if self._mat[case][ligne]!=Map.empty:
-                    screen.blit(self.groundIm, vec(ligne, case)*48)
-                elif isinstance(self.get(Coord(case,ligne)),Creature):
-                    self.get(Coord(case,ligne)).draw(Coord(case,ligne))
+                    SCREEN.blit(self.groundIm, vec(ligne, case)*48)
+                #elif isinstance(self.get(Coord(case,ligne)),Creature):
+                #    self.get(Coord(case,ligne)).draw(Coord(case,ligne))
+        for i in self._elem.keys():
+            i.draw(SCREEN)
 
-
-screen=pygame.display.set_mode((864,864))

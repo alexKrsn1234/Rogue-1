@@ -2,11 +2,15 @@ import pygame
 import random
 import copy
 
-class Element(object):
+vec = pygame.math.Vector2
+class Element(pygame.sprite.Sprite):
     aaa = 4
-    def __init__(self,name,abbrv=""):
+    def __init__(self,name,coord, abbrv=""):
+       super().__init__()
        self.name=name
        self.abbrv=abbrv
+       self.coord = coord
+       print("Jesus" + str(name) + str(coord) + str(abbrv))
        if abbrv=="" :
            self.abbrv=name[0]
        
@@ -20,6 +24,10 @@ class Element(object):
     def meet(self,hero):
         raise NotImplementedError("Not implemented yet")
     
+    def draw(self,SCREEN) :
+        if(self.Im != None):
+            SCREEN.blit(self.Im,vec(self.coord.x, self.coord.y)*48)
+
     @staticmethod
     def randElement(collection):
         X=random.expovariate(1/2)

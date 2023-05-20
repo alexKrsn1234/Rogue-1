@@ -17,7 +17,6 @@ pygame.display.set_icon(icon)
 vec = pygame.math.Vector2
 
 #Screen :
-screen=pygame.display.set_mode((864,864))
 
 
 heroImg=pygame.image.load("./Img/zelda_0.png")
@@ -44,7 +43,7 @@ def teleport(m, creature, unique):
 
 
 class Game(object):
-    screen=pygame.display.set_mode((864,864))
+    SCREEN=pygame.display.set_mode((864,864))
     
     
     _actions = {"z" : lambda hero: theGame()._floor.move(hero, Coord(0, -1)),
@@ -81,14 +80,13 @@ class Game(object):
         
     def buildFloor(self,m):
         c=m._rooms[-1].center()
-        m.put(self._floor._rooms[-1].center(),Stairs())
-        screen.blit(stairs,vec(c.x,c.y)*48)
+        m.put(self._floor._rooms[-1].center(),Stairs(coord=self._floor._rooms[-1].center()))
 
 
     def play(self):
         while 1:
             #RGB : Red Green Blue
-            screen.fill((50,33,37))
+            Game.SCREEN.fill((50,33,37))
             for event in pygame.event.get():
                 if event.type==pygame.QUIT:
                     pygame.quit()
@@ -101,12 +99,12 @@ class Game(object):
             
             
             
-            screen.blit(le_mur, (0,0))
-            theGame()._floor.draw()
+            Game.SCREEN.blit(le_mur, (0,0))
+            theGame()._floor.draw(Game.SCREEN)
             theGame().buildFloor(theGame()._floor)
-            screen.blit(heroImg, (theGame()._floor.hero.map_pos.x, theGame()._floor.hero.map_pos.y))
+            Game.SCREEN.blit(heroImg, (theGame()._floor.hero.map_pos.x, theGame()._floor.hero.map_pos.y))
             pygame.display.flip()
-            clock.tick(2000)
+            clock.tick(15)
             pygame.display.set_caption(str(int(clock.get_fps())))
     
 def theGame(game=Game()) :

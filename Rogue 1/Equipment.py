@@ -18,15 +18,15 @@ class Equipment(Element):
     equipments = {0: [("potion", "!", None, lambda self, hero: heal(hero), False), \
                       ("gold", "o", None, None, False)], \
                   1: [("dagger", "d", None, lambda self, hero: throw(2, False), True, {'strength': 1}), \
-                      ("potion", "!", lambda self, hero: teleport(hero, True))], \
+                      ("potion", "!", None, lambda self, hero: teleport(hero, True))], \
                   2: [("sword", "s", None, None, True, {'strength': 2}), \
                       ("bow", "b", None, lambda self, hero: throw(1, True), True, None), \
                       ("leather vest", 'l', None, None, True, {'armor': 1})], \
                   3: [("portoloin", "w" , None, lambda self, hero: teleport(hero, False))],
                   4: [("chaimail", 'c', None, None, True, {'armor': 2})]}
     
-    def __init__ (self,name,abbrv="",Im=None,usage=None, weapon=True, effect=None ):
-        super().__init__(name,abbrv)
+    def __init__ (self,name,abbrv="",Im=None,usage=None, weapon=True, effect=None, coord = None ):
+        super().__init__(name,coord,abbrv)
         self.usage=usage
         self.Im=Im
         self.weapon = weapon

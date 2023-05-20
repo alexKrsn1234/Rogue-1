@@ -52,7 +52,7 @@ class Room (object):
     def decorate(self,map):
 
         c1=self.randEmptyCoord(map)
-        map.put(c1,Equipment(*Equipment.randEquipment()))
-        c2=self.randEmptyCoord(map)
-        map.put(c2,Creature(*Creature.randMonster()))
+        map.put(c1,Equipment(*Equipment.randEquipment(), coord=c1))
+        c1=self.randEmptyCoord(map)
+        map.put(c1,Creature(*Creature.randMonster(), coord=c1))
     
