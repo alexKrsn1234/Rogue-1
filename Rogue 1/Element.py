@@ -10,7 +10,6 @@ class Element(pygame.sprite.Sprite):
        self.name=name
        self.abbrv=abbrv
        self.coord = coord
-       print("Jesus" + str(name) + str(coord) + str(abbrv))
        if abbrv=="" :
            self.abbrv=name[0]
        
