@@ -95,16 +95,18 @@ class Game(object):
                 if event.type==pygame.KEYDOWN:
                     if(event.key in (pygame.K_z, pygame.K_s, pygame.K_q, pygame.K_d)):
                         theGame()._floor.key_down_event(event.key)
+                        
                     
             
             
             
             Game.SCREEN.blit(le_mur, (0,0))
-            theGame()._floor.draw(Game.SCREEN)
             theGame().buildFloor(theGame()._floor)
+            theGame()._floor.drawGround(Game.SCREEN)
+            theGame()._floor.drawElem(Game.SCREEN)
             Game.SCREEN.blit(heroImg, (theGame()._floor.hero.map_pos.x, theGame()._floor.hero.map_pos.y))
             pygame.display.flip()
-            clock.tick(15)
+            clock.tick(2000)
             pygame.display.set_caption(str(int(clock.get_fps())))
     
 def theGame(game=Game()) :

@@ -10,7 +10,7 @@ Imbear=pygame.image.load("./Img/bear.png")
 Imshadow=pygame.image.load("./Img/shadow.png")
 
 class Creature(Element):
-    monsters = {0: [("goblin", 4), ("demon", 2, "D")],
+    monsters = {0: [("goblin", 4,"G"), ("demon", 2, "D")],
                 1: [("bear", 6, "B", None, 2)], 5: [("shadow", 20, "S", None, 3)]}
     
     def __init__(self,name,hp,abbrv="",Im=None,strength=-1, coord = None):

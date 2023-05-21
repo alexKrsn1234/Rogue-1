@@ -123,6 +123,7 @@ class Map:
                 self._elem[e] = dest
                 if(isinstance(e, Hero)):
                     self.hero.map_pos = Coord(dest.x, dest.y)*48
+
             elif self.get(dest) != Map.empty and self.get(dest).meet(e) and self.get(dest) != self.hero:
                 self.rm(dest)
     
@@ -135,10 +136,10 @@ class Map:
                 continue
             
             self.move(i,self.pos(i).direction(self.pos(self.hero)))
-                    
-                    
-                    
-        
+            if isinstance(i, Creature) and i.name!=self.hero.name:
+                i.coord+=i.coord.direction(self.pos(self.hero))
+                
+
     def addRoom(self,room):
         self._roomsToReach.append(room)
         for i in range(room.c1.y, room.c2.y+1) :
@@ -209,14 +210,15 @@ class Map:
         print(self)
 
     
-    def draw(self, SCREEN):
+    def drawGround(self, SCREEN):
 
         for ligne in range (len(self._mat)) :
             for case in range (len(self._mat[ligne])) :
                 if self._mat[case][ligne]!=Map.empty:
                     SCREEN.blit(self.groundIm, vec(ligne, case)*48)
-                #elif isinstance(self.get(Coord(case,ligne)),Creature):
-                #    self.get(Coord(case,ligne)).draw(Coord(case,ligne))
-        for i in self._elem.keys():
+    
+    def drawElem(self,SCREEN):
+        for i in self._elem:
             i.draw(SCREEN)
 
+        
