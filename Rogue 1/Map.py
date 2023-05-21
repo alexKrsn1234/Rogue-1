@@ -135,9 +135,12 @@ class Map:
             if not(self.pos(self.hero).distance(self.pos(i))<6):
                 continue
             
-            self.move(i,self.pos(i).direction(self.pos(self.hero)))
             if isinstance(i, Creature) and i.name!=self.hero.name:
-                i.coord+=i.coord.direction(self.pos(self.hero))
+                if self.get(i.coord+i.coord.direction(self.pos(self.hero)))==Map.ground:
+                    i.coord+=i.coord.direction(self.pos(self.hero))
+
+            self.move(i,self.pos(i).direction(self.pos(self.hero)))
+            
                 
 
     def addRoom(self,room):
