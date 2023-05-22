@@ -2,6 +2,9 @@ from Creature import Creature
 import pygame
 from Img import *
 
+vec = pygame.math.Vector2
+
+
 class Hero(Creature):
     def __init__(self,name="Hero",hp=10,abbrv="@",Img=None,strength=2,inventory=None):
         super().__init__(name,hp,abbrv,strength)
@@ -30,6 +33,12 @@ class Hero(Creature):
             l+=f"> {i[1:] if(i[0]=='_') else i} : {self.__dict__[i]}\n" if(i != "_inventory") else ""
         l+=f"> INVENTORY : {[i.name for i in self._inventory]}"
         return l
+        
+    def drawFullDescriptioin(self,SCREEN):
+        print(self.fullDescription())
+        font = pygame.font.SysFont(self.fullDescription(), 24)
+        img = font.render(self.fullDescription(), True,"DarkBlue")
+        SCREEN.blit(img, vec(20, 20)*48)
         
     def update(self):
         pass

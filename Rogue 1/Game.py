@@ -82,6 +82,16 @@ class Game(object):
         c=m._rooms[-1].center()
         m.put(self._floor._rooms[-1].center(),Stairs(coord=self._floor._rooms[-1].center()))
 
+    def key_down(self,event):
+        if event==pygame.K_k:
+            self._floor.hero.hp=0
+            Game.SCREEN.blit(Map.groundIm,vec(self._floor.hero.map_pos.x,self._floor.hero.map_pos.y))
+            pygame.quit()
+            exit()
+        if event==pygame.K_i :
+            self._floor.hero.drawFullDescriptioin(self.SCREEN)
+            
+
 
     def play(self):
         while 1:
@@ -95,8 +105,10 @@ class Game(object):
                 if event.type==pygame.KEYDOWN:
                     if(event.key in (pygame.K_z, pygame.K_s, pygame.K_q, pygame.K_d)):
                         theGame()._floor.key_down_event(event.key)
-                        
-                    
+                    #if (event.key ==pygame.K_u):
+                     #  Game.SCREEN.blit()
+                    else :
+                        self.key_down(event.key)
             
             
             
