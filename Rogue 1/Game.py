@@ -89,7 +89,7 @@ class Game(object):
             pygame.quit()
             exit()
         if event==pygame.K_i :
-            self._floor.hero.drawFullDescriptioin(self.SCREEN)
+            self._floor.hero.drawInventory(self.SCREEN)
             
 
 

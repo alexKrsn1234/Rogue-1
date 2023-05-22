@@ -34,11 +34,13 @@ class Hero(Creature):
         l+=f"> INVENTORY : {[i.name for i in self._inventory]}"
         return l
         
-    def drawFullDescriptioin(self,SCREEN):
-        print(self.fullDescription())
-        font = pygame.font.SysFont(self.fullDescription(), 24)
-        img = font.render(self.fullDescription(), True,"DarkBlue")
-        SCREEN.blit(img, vec(20, 20)*48)
+    def drawInventory(self,SCREEN):
+        l=""
+        for i in self._inventory:
+            l+=f"> INVENTORY : {i.name}\n"
+        font = pygame.font.SysFont(None, 24)
+        img = font.render(l, True,"DarkBlue")
+        SCREEN.blit(img, vec(17, 16)*48)
         
     def update(self):
         pass
