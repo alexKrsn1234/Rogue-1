@@ -35,15 +35,10 @@ class Hero(Creature):
         return l
         
     def drawInventory(self,SCREEN):
-        l=""
+        l="> INVENTORY : \n"
         for i in self._inventory:
-            l+=f"> INVENTORY : {i.name}\n"
-        font = pygame.font.SysFont(None, 24)
-        img = font.render(l, True,"DarkBlue")
-        SCREEN.blit(img, vec(17, 16)*48)
+            l+=str(i.name)+"\n"
+        return l
         
-    def update(self):
-        pass
-
-    def draw(self,c):
-        pass
+        
+        
