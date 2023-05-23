@@ -26,6 +26,10 @@ class Creature(Element):
             self.strength=1
         if self.name!="Hero" :
             self.Im=Creature.monsters_liste[self.name]
+        self.rect=self.Im.get_rect()
+        self.rect.x=self.coord[0]
+        self.rect.y=self.coord[1]
+
 
     def description(self):
         return super().description()+"("+str(self.hp)+")"

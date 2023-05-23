@@ -89,10 +89,8 @@ class Game(object):
             pygame.quit()
             exit()
         if event==pygame.K_i :
-            white = (255, 255, 255)
             green = (0, 255, 0)
             blue = (0, 0, 128)
-            display_surface = pygame.display.set_mode((816, 768))
             font = pygame.font.Font('freesansbold.ttf', 32)
             text = font.render(self._floor.hero.drawInventory(self.SCREEN), True, green, blue)
             textRect = text.get_rect()

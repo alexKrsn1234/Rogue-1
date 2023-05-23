@@ -222,10 +222,11 @@ class Map:
     
     def drawElem(self,SCREEN):
         from Game import Game
-        for i in self._elem and i.name!=self.hero.name:
-            i.draw(SCREEN)
-            if isinstance(i, Creature):
-                i.update_health_bar(Game.SCREEN)
+        for i in self._elem :
+            if i.name!=self.hero.name:
+                i.draw(SCREEN)
+                if isinstance(i, Creature):
+                    i.uptdate_health_bar(Game.SCREEN)
 
 
         
