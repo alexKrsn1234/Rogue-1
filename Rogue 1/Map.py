@@ -215,14 +215,17 @@ class Map:
 
     
     def drawGround(self, SCREEN):
-
         for ligne in range (len(self._mat)) :
             for case in range (len(self._mat[ligne])) :
                 if self._mat[case][ligne]!=Map.empty:
                     SCREEN.blit(self.groundIm, vec(ligne, case)*48)
     
     def drawElem(self,SCREEN):
-        for i in self._elem:
+        from Game import Game
+        for i in self._elem and i.name!=self.hero.name:
             i.draw(SCREEN)
+            if isinstance(i, Creature):
+                i.update_health_bar(Game.SCREEN)
+
 
         

@@ -20,6 +20,7 @@ class Creature(Element):
     def __init__(self,name,hp,abbrv="",Im=None,strength=-1, coord = None):
         super().__init__(name,coord, abbrv)
         self.hp=hp
+        self.hp_max=self.hp
         self.strength=strength
         if self.strength==-1:
             self.strength=1
@@ -36,6 +37,11 @@ class Creature(Element):
     @staticmethod
     def randMonster():
         return Element.randElement(Creature.monsters)
+    
+    def uptdate_health_bar(self,SCREEN):
+        bar_color = (111,210,46)
+        bar_position = [self.rect.x, self.rect.y,self.hp,8]
+        pygame.draw.rect(SCREEN, bar_color, bar_position)
     
 
     

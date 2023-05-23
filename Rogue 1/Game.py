@@ -53,8 +53,8 @@ class Game(object):
                 "i" : lambda hero: theGame().addMessage(hero.fullDescription()),
                 "k" : lambda hero: hero.kill(),
                 " " : lambda hero: None,
-                "u" : lambda hero: hero.use(theGame().select(hero.INVENTORY))
-    }
+                "u" : lambda hero: hero.use(theGame().select(hero.INVENTORY))}
+    
     def __init__(self,hero=None,level=1,message=None):
         self.hero=hero
         if self.hero==None:
