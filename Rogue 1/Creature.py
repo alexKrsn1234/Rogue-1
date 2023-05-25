@@ -26,9 +26,9 @@ class Creature(Element):
             self.strength=1
         if self.name!="Hero" :
             self.Im=Creature.monsters_liste[self.name]
-        self.rect=self.Im.get_rect()
-        self.rect.x=self.coord[0]
-        self.rect.y=self.coord[1]
+        #self.rect=self.Im.get_rect()
+        #self.rect.x=self.coord[0]
+        #self.rect.y=self.coord[1]
 
 
     def description(self):
@@ -42,10 +42,10 @@ class Creature(Element):
     def randMonster():
         return Element.randElement(Creature.monsters)
     
-    def uptdate_health_bar(self,SCREEN):
-        bar_color = (111,210,46)
-        bar_position = [self.rect.x, self.rect.y,self.hp,8]
-        pygame.draw.rect(SCREEN, bar_color, bar_position)
+    #def uptdate_health_bar(self,SCREEN):
+    #    bar_color = (111,210,46)
+    #    bar_position = [self.rect.x, self.rect.y,self.hp,8]
+    #    pygame.draw.rect(SCREEN, bar_color, bar_position)
     
 
     

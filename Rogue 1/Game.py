@@ -82,6 +82,11 @@ class Game(object):
         c=m._rooms[-1].center()
         m.put(self._floor._rooms[-1].center(),Stairs(coord=self._floor._rooms[-1].center()))
 
+    def draw_text(self,SCREEN,text,font,text_col,x,y):
+        img=font.render(text, True, text_col)
+        SCREEN.blit(img, (x,y))
+
+
     def key_down(self,event):
         if event==pygame.K_k:
             self._floor.hero.hp=0
@@ -89,10 +94,11 @@ class Game(object):
             pygame.quit()
             exit()
         if event==pygame.K_i :
+            text_font = pygame.font.Font('freesansbold.ttf', 32)
             green = (0, 255, 0)
             blue = (0, 0, 128)
             font = pygame.font.Font('freesansbold.ttf', 32)
-            text = font.render(self._floor.hero.drawInventory(self.SCREEN), True, green, blue)
+            text = font.render(self._floor.hero._inventory, True, green, blue)
             textRect = text.get_rect()
             textRect.center = (816 // 2, 768 // 2)
             Game.SCREEN.blit(textRect, (816,768))
