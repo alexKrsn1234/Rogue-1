@@ -13,7 +13,7 @@ class Hero(Creature):
             self._inventory=[]
         self.name=self.name
         self.map_pos = None
-        self.strength=10000
+        self.strength=strength
 
     def description(self):
        return super().description()+str(self._inventory)

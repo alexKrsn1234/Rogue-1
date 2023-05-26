@@ -234,8 +234,8 @@ class Map:
         for i in self._elem :
             if i.name!=self.hero.name:
                 i.draw(SCREEN)
-                #if isinstance(i, Creature):
-                #    i.uptdate_health_bar(Game.SCREEN)
+                if isinstance(i, Creature):
+                    i.uptdate_health_bar(Game.SCREEN)
 
 
         
