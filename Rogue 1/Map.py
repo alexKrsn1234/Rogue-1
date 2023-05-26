@@ -128,21 +128,20 @@ class Map:
                 self.rm(dest)
     
     def moveAllMonsters(self):
-        i=0
-        while i<=len(self._elem):
-            print(self._elem[0])
-            if not(isinstance(self._elem[i],Creature)) or isinstance(self._elem[i],Hero):
+        
+        for i in self._elem:
+            if not(isinstance(i,Creature)) or isinstance(i,Hero):
                 continue
             
-            if not(self.pos(self.hero).distance(self.pos(self._elem[i]))<6):
+            if not(self.pos(self.hero).distance(self.pos(i))<6):
                 continue
             
-            if isinstance(self._elem[i], Creature) and self._elem[i].name!=self.hero.name:
-                if self.get(self._elem[i].coord+self._elem[i].coord.direction(self.pos(self.hero)))==Map.ground:
-                    self._elem[i].coord+=self._elem[i].coord.direction(self.pos(self.hero))
+            if isinstance(i, Creature) and i.name!=self.hero.name:
+                if self.get(i.coord+i.coord.direction(self.pos(self.hero)))==Map.ground:
+                    i.coord+=i.coord.direction(self.pos(self.hero))
 
-            self.move(self._elem[i],self.pos(self._elem[i]).direction(self.pos(self.hero)))
-            i+=1
+            self.move(i,self.pos(i).direction(self.pos(self.hero)))
+           
                 
 
     def addRoom(self,room):

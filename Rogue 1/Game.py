@@ -6,9 +6,10 @@ from Map import Map
 from Coord import Coord
 from Stairs import Stairs
 from Hero import Hero
-
+import time
 #Init :
 pygame.init()
+pygame.font.init()
 #Title and Icon :
 pygame.display.set_caption("Hunger Games")
 icon=pygame.image.load("./Img/icon.png")
@@ -84,27 +85,22 @@ class Game(object):
 
     def draw_text(self,SCREEN,text,font,text_col,x,y):
         img=font.render(text, True, text_col)
-        SCREEN.blit(img, (x,y))
+        SCREEN.blit(img, vec(x,y)*48)
 
 
     def key_down(self,event):
-        if event==pygame.K_k:
-            self._floor.hero.hp=0
-            Game.SCREEN.blit(Map.groundIm,vec(self._floor.hero.map_pos.x,self._floor.hero.map_pos.y))
-            pygame.quit()
-            exit()
-        if event==pygame.K_i :
-            text_font = pygame.font.Font('freesansbold.ttf', 32)
-            green = (0, 255, 0)
-            blue = (0, 0, 128)
-            font = pygame.font.Font('freesansbold.ttf', 32)
-            text = font.render(self._floor.hero._inventory, True, green, blue)
-            textRect = text.get_rect()
-            textRect.center = (816 // 2, 768 // 2)
-            Game.SCREEN.blit(textRect, (816,768))
-
-            
-
+        
+        if event==pygame.K_k or event==pygame.K_i or event==pygame.K_u:
+            if event==pygame.K_k:
+                self._floor.hero.hp=0
+                print(self._hero.hp)
+                Game.SCREEN.blit(Map.groundIm,vec(self._floor.hero.map_pos.x,self._floor.hero.map_pos.y))
+                time.sleep(3)
+                pygame.quit()
+                exit()
+            if event==pygame.K_i :
+                print((self._floor.hero.strInventory()))
+                self.draw_text(Game.SCREEN, self._floor.hero.strInventory(), font = pygame.font.SysFont('chalkduster.ttf', 72), text_col=(255,0,0), x=10, y=10)
 
     def play(self):
         while 1:
@@ -118,11 +114,11 @@ class Game(object):
                 if event.type==pygame.KEYDOWN:
                     if(event.key in (pygame.K_z, pygame.K_s, pygame.K_q, pygame.K_d)):
                         theGame()._floor.key_down_event(event.key)
+                        self.key_down(event)
+                    
                     #if (event.key ==pygame.K_u):
                      #  Game.SCREEN.blit()
-                    else :
-                        self.key_down(event.key)
-            
+                    
             
             
             Game.SCREEN.blit(le_mur, (0,0))

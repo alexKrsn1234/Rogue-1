@@ -34,10 +34,11 @@ class Hero(Creature):
         l+=f"> INVENTORY : {[i.name for i in self._inventory]}"
         return l
         
-    def drawInventory(self,SCREEN):
+    def strInventory(self):
         l="> INVENTORY : \n"
         for i in self._inventory:
             l+=str(i.name)+"\n"
+        print(l)
         return l
         
         
