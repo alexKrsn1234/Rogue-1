@@ -232,6 +232,8 @@ class Map:
     def drawElem(self,SCREEN):
         from Game import Game
         for i in self._elem :
+            if isinstance(i, Hero):
+                    i.update_health_bar_hero(Game.SCREEN)
             if i.name!=self.hero.name:
                 i.draw(SCREEN)
                 if isinstance(i, Creature):
