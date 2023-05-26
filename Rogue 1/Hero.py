@@ -7,12 +7,11 @@ vec = pygame.math.Vector2
 
 class Hero(Creature):
     def __init__(self,name="Hero",hp=10,abbrv="@",Img=None,strength=2,inventory=None):
-        super().__init__(name,hp,abbrv,strength)
+        super().__init__(name,hp,abbrv,pygame.image.load("./Img/zelda_0.png"),strength)
         self._inventory=inventory
         if self._inventory==None:
             self._inventory=[]
         self.name=self.name
-        self.Img=pygame.image.load("./Img/zelda_0.png")
         self.map_pos = None
 
     def description(self):
