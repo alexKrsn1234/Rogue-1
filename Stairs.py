@@ -22,7 +22,7 @@ class Stairs(Element):
         if isinstance(other,Hero) :
             from Game import theGame
             from Map import Map
-            theGame()._floor=Map(size=theGame().Modulo%48,hero = theGame()._floor.hero)
+            theGame()._floor=Map(size=int(theGame().Modulo),hero = theGame()._floor.hero)
             theGame().buildFloor(theGame()._floor)
         
 

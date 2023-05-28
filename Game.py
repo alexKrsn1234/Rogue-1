@@ -49,7 +49,7 @@ class Game(object):
     info=pygame.display.Info()
     WIDHT = info.current_w-10
     HEIGHT=info.current_h-50
-    Modulo=HEIGHT%48
+    Modulo=int(HEIGHT)/48
     SIZE = WIDHT, HEIGHT
     SCREEN=pygame.display.set_mode(SIZE)
     Font1 = pygame.font.SysFont('chalkduster.ttf', 72)
@@ -61,7 +61,8 @@ class Game(object):
         if self.hero==None:
             self.hero=Hero()
         self._level=level
-        self._floor=Map(size=Game.Modulo-3, hero=Hero())
+        print(Game.Modulo)
+        self._floor=Map(size=int(Game.Modulo), hero=Hero())
         self._hero=self.hero
         self.buildFloor(self._floor)
         self._message=message
