@@ -33,9 +33,10 @@ class Map:
     direction = {pygame.K_z:vec(0,-1) , pygame.K_d:vec(1,0), pygame.K_q:vec(-1,0), pygame.K_s:vec(0,1)}
     heroImg0=pygame.image.load("./Img/zelda_0.png")
     stairsIm=pygame.image.load("./Img/escaliers.png")
+    player_coord = Coord(300,300)
     dir={pygame.K_z: Coord(0,-1), pygame.K_s: Coord(0,1), pygame.K_d: Coord(1,0), pygame.K_q: Coord(-1,0)}
 
-    def __init__(self,size,hero=None,nbrooms=12):
+    def __init__(self,size,hero=None,nbrooms=7):
         self.size=size
         self._hero=hero
         self._mat=[]
@@ -51,7 +52,7 @@ class Map:
         self.reachAllRooms()
         self._elem={}
         self.put(self._rooms[0].center(),self._hero)
-        self.hero.coord = self._rooms[0].center()
+        self.hero.map_pos = self._rooms[0].center()*48
         for i in self._rooms:
            i.decorate(self)
         print(self)
@@ -121,7 +122,7 @@ class Map:
                 self._mat[dest.y][dest.x] = e
                 self._elem[e] = dest
                 if(isinstance(e, Hero)):
-                    self.hero.coord = Coord(dest.x, dest.y)
+                    self.hero.map_pos = Coord(dest.x, dest.y)*48
 
             elif self.get(dest) != Map.empty and self.get(dest).meet(e) and self.get(dest) != self.hero:
                 self.rm(dest)
@@ -230,9 +231,13 @@ class Map:
     
     def drawElem(self,SCREEN):
         from Game import Game
-        self.hero.draw(SCREEN)
-        for entity in self._elem :
-            entity.draw(Game.SCREEN)
+        for i in self._elem :
+            if isinstance(i, Hero):
+                    i.update_health_bar_hero(Game.SCREEN)
+            if i.name!=self.hero.name:
+                i.draw(SCREEN)
+                if isinstance(i, Creature):
+                    i.uptdate_health_bar(Game.SCREEN)
 
 
         

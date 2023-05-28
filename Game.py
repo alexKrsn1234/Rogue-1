@@ -39,7 +39,7 @@ class Game(object):
     info=pygame.display.Info()
     WIDHT = info.current_w-10
     HEIGHT=info.current_h-50
-    Modulo=HEIGHT//48
+    Modulo=int(HEIGHT)/48
     SIZE = WIDHT, HEIGHT
     SCREEN=pygame.display.set_mode(SIZE)#, pygame.FULLSCREEN)
     Font1 = pygame.font.SysFont('chalkduster.ttf', 35)
@@ -51,7 +51,8 @@ class Game(object):
         if self.hero==None:
             self.hero=Hero()
         self._level=level
-        self._floor=Map(size=Game.Modulo, hero=self.hero)
+        print(Game.Modulo)
+        self._floor=Map(size=int(Game.Modulo), hero=Hero())
         self._hero=self.hero
         self.buildFloor(self._floor)
         self._message=message
@@ -89,8 +90,8 @@ class Game(object):
     def gold_draw(self,SCREEN):
         Game.SCREEN.blit(Equipment.Imgold, vec(Game.WIDHT/2,Game.HEIGHT/2))
         self.draw_text(Game.SCREEN,str(self._floor.hero.gold)+" x Gold", font = Game.Font2, text_col=(255,255,255), x=Game.WIDHT/2+Game.WIDHT/5, y=Game.HEIGHT/2)    
-
-
+         
+    
     def key_down(self,event):
         if event.key==pygame.K_k:
             pygame.quit()
@@ -101,7 +102,7 @@ class Game(object):
             self.inventory_open = not(self.inventory_open)
         
         if(event.key in (pygame.K_z, pygame.K_s, pygame.K_q, pygame.K_d)):
-            self._floor.key_down_event(event.key)
+            theGame()._floor.key_down_event(event.key)
 
         if(self.inventory_open and event.key in Game.key_dictionnary_number):
             key = Game.key_dictionnary_number[event.key]
@@ -119,8 +120,7 @@ class Game(object):
         while 1:
             #RGB : Red Green Blue
             Game.SCREEN.fill((50,33,37))
-            events = pygame.event.get()
-            for event in events:
+            for event in pygame.event.get():
                 if event.type==pygame.QUIT:
                     pygame.quit()
                     exit()
@@ -134,11 +134,13 @@ class Game(object):
         
 
             Game.SCREEN.blit(le_mur, (0,0))
-            self._floor.drawGround(Game.SCREEN)
-            self._floor.drawElem(Game.SCREEN)
-            self.inventory_draw(Game.SCREEN)
+            theGame()._floor.drawGround(Game.SCREEN)
+            theGame()._floor.drawElem(Game.SCREEN)
+            Game.SCREEN.blit(heroImg, (theGame()._floor.hero.map_pos.x, theGame()._floor.hero.map_pos.y))
+            if(self.inventory_open):
+                self.inventory_draw(Game.SCREEN)
             pygame.display.flip()
-            clock.tick(200000)
+            clock.tick(2000)
             pygame.display.set_caption(str(int(clock.get_fps())))
     
 def theGame(game=Game()) :
