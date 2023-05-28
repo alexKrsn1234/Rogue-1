@@ -12,10 +12,12 @@ def heal(creature):
 
 
 def teleport(m, creature, unique):
+    print("ttt")
     m.rm(m.pos(creature))
     r=random.choice(m._rooms)
     c=r.randEmptyCoord(m)
     m.put(c,creature)
+    creature.coord = c
     return unique
 
 
@@ -24,7 +26,7 @@ def modifstrength(m,n,unique) :
     return unique
 
 class Equipment(Element):
-    equipments = {0: [("potion", "!", None, lambda self, hero: heal(hero), False), \
+    equipments = {0: [("potion", "!", None, lambda hero, m: heal(hero), False), \
                       ("gold", "o", None, None, False)], \
                   1: [("potion_teleport", "?", None, lambda hero, m: teleport(m, hero, True))], \
                   2: [("sword", "s", None, lambda hero, m : modifstrength(m,5, False))], \
@@ -52,11 +54,11 @@ class Equipment(Element):
             hero.take(self)
             return True
     
-    def use(self,creature):
+    def use(self,creature, m):
         if(self.usage == None):
             return(False)
         
-        return(self.usage(self, creature))
+        return(self.usage(creature, m))
 
     @staticmethod
     def randEquipment():

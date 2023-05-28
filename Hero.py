@@ -15,7 +15,6 @@ class Hero(Creature):
         self.gold=gold
         self.hp_max=50
         self.name=self.name
-        self.map_pos = None
         self.strength=strength
 
     def description(self):
@@ -50,5 +49,10 @@ class Hero(Creature):
             l+=str(i.name)+"\n"
         return l
         
+    def draw(self, SCREEN):
+        super().draw(SCREEN)
+        pygame.draw.rect(SCREEN, (0,0,0), pygame.Rect(630,25,200,20))
+        pygame.draw.rect(SCREEN, (150,0,0), pygame.Rect(633,28,195,14))
+        pygame.draw.rect(SCREEN, (111,210,46), pygame.Rect(633,28,self.hp/self.hp_max*195,14))
         
         
