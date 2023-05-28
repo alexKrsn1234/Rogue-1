@@ -4,28 +4,25 @@ from Hero import Hero
 import random
 
 def heal(creature):
-    print("jesus")
     creature.hp+=3
     return True
 
 def teleport(m, creature, unique):
-    print("ttt")
     m.rm(m.pos(creature))
     r=random.choice(m._rooms)
     c=r.randEmptyCoord(m)
     m.put(c,creature)
-    creature.coord = c
     return unique
 
 
 
 
 class Equipment(Element):
-    equipments = {0: [("potion", "!", None, lambda hero, m: heal(hero), False), \
+    equipments = {0: [("potion", "!", None, lambda self, hero: heal(hero), False), \
                       ("gold", "o", None, None, False)], \
-                  1: [("potion_teleport", "?", None, lambda hero, m: teleport(m, hero, True))], \
+                  1: [("potion_teleport", "?", None, lambda self, hero: teleport(hero, True))], \
                   2: [("sword", "s", None, None, True, {'strength': 2})], \
-                  3: [("portoloin", "w" , None, lambda hero, m: teleport(m, hero, False))]}
+                  3: [("portoloin", "w" , None, lambda self, hero: teleport(hero, False))]}
 
     Impotion=pygame.image.load("./Img/potion.png")
     Impotiontel=pygame.image.load("./Img/potion_teleport.png")
@@ -49,11 +46,11 @@ class Equipment(Element):
             hero.take(self)
             return True
     
-    def use(self,creature, m):
+    def use(self,creature):
         if(self.usage == None):
             return(False)
         
-        return(self.usage(creature, m))
+        return(self.usage(self, creature))
 
     @staticmethod
     def randEquipment():
