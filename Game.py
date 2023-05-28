@@ -6,6 +6,7 @@ from Map import Map
 from Coord import Coord
 from Stairs import Stairs
 from Hero import Hero
+from Equipment import Equipment
 import time
 #Init :
 pygame.init()
@@ -44,24 +45,23 @@ def teleport(m, creature, unique):
 
 
 class Game(object):
-    SCREEN=pygame.display.set_mode((864,864))
+
+    info=pygame.display.Info()
+    WIDHT = info.current_w-10
+    HEIGHT=info.current_h-50
+    Modulo=HEIGHT%48
+    SIZE = WIDHT, HEIGHT
+    SCREEN=pygame.display.set_mode(SIZE)
     Font1 = pygame.font.SysFont('chalkduster.ttf', 72)
     Font2 = pygame.font.SysFont('chalkduster.ttf', 48)
-    _actions = {"z" : lambda hero: theGame()._floor.move(hero, Coord(0, -1)),
-                "q" : lambda hero: theGame()._floor.move(hero, Coord(-1, 0)),
-                "s" : lambda hero: theGame()._floor.move(hero, Coord(0, 1)),
-                "d" : lambda hero: theGame()._floor.move(hero, Coord(1, 0)),
-                "i" : lambda hero: theGame().addMessage(hero.fullDescription()),
-                "k" : lambda hero: hero.kill(),
-                " " : lambda hero: None,
-                "u" : lambda hero: hero.use(theGame().select(hero.INVENTORY))}
+    
     
     def __init__(self,hero=None,level=1,message=None):
         self.hero=hero
         if self.hero==None:
             self.hero=Hero()
         self._level=level
-        self._floor=Map(hero=Hero())
+        self._floor=Map(size=Game.Modulo-3, hero=Hero())
         self._hero=self.hero
         self.buildFloor(self._floor)
         self._message=message
@@ -91,16 +91,44 @@ class Game(object):
     def inventory_draw(self, SCREEN):
         
         self.draw_text(Game.SCREEN, "Inventory", font = Game.Font1, text_col=(255,255,255), x=10, y=10)
+        self.draw_text(Game.SCREEN, "Choose an item", font = Game.Font1, text_col=(255,255,255), x=200, y=200)
         for i in range(len(self._floor.hero._inventory)):
             SCREEN.blit(self._floor.hero._inventory[i].Im, vec(10, 70 + i*50))
-            self.draw_text(Game.SCREEN, self._floor.hero._inventory[i].name, font = Game.Font2, text_col=(255,255,255), x=60, y=80 + i*50)
+            self.draw_text(Game.SCREEN,str(i)+" : "+ self._floor.hero._inventory[i].name, font = Game.Font2, text_col=(255,255,255), x=60, y=80 + i*50)
+        self.gold_draw(Game.SCREEN)
+
+    def gold_draw(self,SCREEN):
+        print(Game.HEIGHT,Game.WIDHT)
+        Game.SCREEN.blit(Equipment.Imgold, vec(Game.WIDHT,Game.HEIGHT-100))
+        self.draw_text(Game.SCREEN,str(self._floor.hero.gold)+" x Gold", font = Game.Font2, text_col=(255,255,255), x=Game.WIDHT, y=Game.HEIGHT-30)    
+    
+    
+    def chooseInventory(self) :
+        for event in pygame.event.get():
+            if event.key==pygame.K_0:
+                self._floor.hero._inventory[0].use()
+            elif event.key==pygame.K_1:
+                self._floor.hero._inventory[1].use()
+            elif event.key==pygame.K_2:
+                self._floor.hero._inventory[2].use()
+            elif event.key==pygame.K_3:
+                self._floor.hero._inventory[3].use()
+            elif event.key==pygame.K_4:
+                self._floor.hero._inventory[4].use()
+            elif event.key==pygame.K_5:
+                self._floor.hero._inventory[5].use()
+            elif event.key==pygame.K_6:
+                self._floor.hero._inventory[6].use()
+            elif event.key==pygame.K_7:
+                self._floor.hero._inventory[7].use()
+            elif event.key==pygame.K_8:
+                self._floor.hero._inventory[8].use()
+            elif event.key==pygame.K_9:
+                self._floor.hero._inventory[9].use()
+
 
     def key_down(self,event):
         if event.key==pygame.K_k:
-            self._floor.hero.hp=0
-            print(self._hero.hp)
-            Game.SCREEN.blit(Map.groundIm,vec(self._floor.hero.map_pos.x,self._floor.hero.map_pos.y))
-            time.sleep(3)
             pygame.quit()
             exit()
 
@@ -110,6 +138,10 @@ class Game(object):
         
         if(event.key in (pygame.K_z, pygame.K_s, pygame.K_q, pygame.K_d)):
             theGame()._floor.key_down_event(event.key)
+
+        if event.key==pygame.K_u :
+            self.chooseInventory()
+            
 
     def play(self):
         while 1:

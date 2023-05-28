@@ -36,7 +36,7 @@ class Map:
     player_coord = Coord(300,300)
     dir={pygame.K_z: Coord(0,-1), pygame.K_s: Coord(0,1), pygame.K_d: Coord(1,0), pygame.K_q: Coord(-1,0)}
 
-    def __init__(self,size=16,hero=None,nbrooms=7):
+    def __init__(self,size,hero=None,nbrooms=7):
         self.size=size
         self._hero=hero
         self._mat=[]
