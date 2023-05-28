@@ -35,10 +35,13 @@ class Creature(Element):
     def randMonster():
         return Element.randElement(Creature.monsters)
     
-    def draw(self, SCREEN):
-        super().draw(SCREEN)
+    def uptdate_health_bar(self,SCREEN):
         pygame.draw.rect(SCREEN, (0,0,0), pygame.Rect(self.coord.x*48-1,self.coord.y*48-8,50,10))
         pygame.draw.rect(SCREEN, (150,0,0), pygame.Rect(self.coord.x*48,self.coord.y*48-7,48,8))
         pygame.draw.rect(SCREEN, (111,210,46), pygame.Rect(self.coord.x*48,self.coord.y*48-7,self.hp/self.hp_max*48,8))
     
+    def update_health_bar_hero(self,SCREEN):
+        pygame.draw.rect(SCREEN, (0,0,0), pygame.Rect(630,25,200,20))
+        pygame.draw.rect(SCREEN, (150,0,0), pygame.Rect(633,28,195,14))
+        pygame.draw.rect(SCREEN, (111,210,46), pygame.Rect(633,28,self.hp/self.hp_max*195,14))
     
