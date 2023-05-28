@@ -4,9 +4,12 @@ from Hero import Hero
 import random
 
 def heal(creature):
-    print("jesus")
-    creature.hp+=3
+    if creature.hp+10>=creature.hp_max :
+        creature.hp=creature.hp_max
+    else :
+        creature.hp+=10
     return True
+
 
 def teleport(m, creature, unique):
     print("ttt")
@@ -18,13 +21,15 @@ def teleport(m, creature, unique):
     return unique
 
 
-
+def modifstrength(m,n,unique) :
+    m.hero.strength+=n
+    return unique
 
 class Equipment(Element):
     equipments = {0: [("potion", "!", None, lambda hero, m: heal(hero), False), \
                       ("gold", "o", None, None, False)], \
                   1: [("potion_teleport", "?", None, lambda hero, m: teleport(m, hero, True))], \
-                  2: [("sword", "s", None, None, True, {'strength': 2})], \
+                  2: [("sword", "s", None, lambda hero, m : modifstrength(m,5, False))], \
                   3: [("portoloin", "w" , None, lambda hero, m: teleport(m, hero, False))]}
 
     Impotion=pygame.image.load("./Img/potion.png")

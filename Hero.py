@@ -6,13 +6,14 @@ vec = pygame.math.Vector2
 
 
 class Hero(Creature):
-    def __init__(self,name="Hero",hp=10,abbrv="@",Img=None,strength=2,inventory=None,gold=0):
+    def __init__(self,name="Hero",hp=50,abbrv="@",Img=None,strength=2,inventory=None,gold=0):
         super().__init__(name,hp,abbrv,pygame.image.load("./Img/zelda_0.png"),strength)
         self._inventory=inventory
         self.gold=gold
         if self._inventory==None:
             self._inventory=[]
         self.gold=gold
+        self.hp_max=50
         self.name=self.name
         self.strength=strength
 
@@ -23,7 +24,11 @@ class Hero(Creature):
         if e.name=="gold":
             self.gold+=1   
         else :
-            return self._inventory.append(e)
+            if len(self._inventory)<10 :
+                return self._inventory.append(e)
+            else :
+                return self._inventory
+
     
     def use(self,item):
         if not (item in self._inventory):
