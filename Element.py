@@ -23,8 +23,9 @@ class Element(pygame.sprite.Sprite):
     def meet(self,hero):
         raise NotImplementedError("Not implemented yet")
     
-    def draw(self,SCREEN):
-        SCREEN.blit(self.Im,vec(self.coord.x, self.coord.y)*48)
+    def draw(self,SCREEN) :
+        if(self.Im != None):
+            SCREEN.blit(self.Im,vec(self.coord.x, self.coord.y)*48)
 
     @staticmethod
     def randElement(collection):
