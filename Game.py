@@ -49,20 +49,19 @@ class Game(object):
     info=pygame.display.Info()
     WIDHT = info.current_w-10
     HEIGHT=info.current_h-50
-    Modulo=int(HEIGHT)/48
+    Modulo=HEIGHT//48
     SIZE = WIDHT, HEIGHT
-    SCREEN=pygame.display.set_mode(SIZE)
+    SCREEN=pygame.display.set_mode(SIZE)#, pygame.FULLSCREEN)
     Font1 = pygame.font.SysFont('chalkduster.ttf', 72)
     Font2 = pygame.font.SysFont('chalkduster.ttf', 48)
-    
+    key_dictionnary_number_py_jesus_is_waiting_for_us_timothee_is_doing_this = {pygame.K_0 : 0, pygame.K_1 : 1, pygame.K_2 : 2, pygame.K_3 : 3, pygame.K_4 : 4, pygame.K_5 : 5, pygame.K_6: 6, pygame.K_7 : 7, pygame.K_8 : 8, pygame.K_9 : 9}
     
     def __init__(self,hero=None,level=1,message=None):
         self.hero=hero
         if self.hero==None:
             self.hero=Hero()
         self._level=level
-        print(Game.Modulo)
-        self._floor=Map(size=int(Game.Modulo), hero=Hero())
+        self._floor=Map(size=Game.Modulo, hero=self.hero)
         self._hero=self.hero
         self.buildFloor(self._floor)
         self._message=message
@@ -90,42 +89,17 @@ class Game(object):
         SCREEN.blit(img, vec(x,y))
 
     def inventory_draw(self, SCREEN):
-        
-        self.draw_text(Game.SCREEN, "Inventory", font = Game.Font1, text_col=(255,255,255), x=10, y=10)
-        self.draw_text(Game.SCREEN, "Choose an item", font = Game.Font1, text_col=(255,255,255), x=200, y=200)
-        for i in range(len(self._floor.hero._inventory)):
-            SCREEN.blit(self._floor.hero._inventory[i].Im, vec(10, 70 + i*50))
-            self.draw_text(Game.SCREEN,str(i)+" : "+ self._floor.hero._inventory[i].name, font = Game.Font2, text_col=(255,255,255), x=60, y=80 + i*50)
-        self.gold_draw(Game.SCREEN)
+        if(self.inventory_open):
+            self.draw_text(Game.SCREEN, "Inventory", font = Game.Font1, text_col=(255,255,255), x=10, y=10)
+            self.draw_text(Game.SCREEN, "Choose an item", font = Game.Font1, text_col=(255,255,255), x=200, y=200)
+            for i in range(len(self._floor.hero._inventory)):
+                SCREEN.blit(self._floor.hero._inventory[i].Im, vec(10, 70 + i*50))
+                self.draw_text(Game.SCREEN,str(i)+" : "+ self._floor.hero._inventory[i].name, font = Game.Font2, text_col=(255,255,255), x=60, y=80 + i*50)
+            self.gold_draw(Game.SCREEN)
 
     def gold_draw(self,SCREEN):
-        print(Game.HEIGHT,Game.WIDHT)
         Game.SCREEN.blit(Equipment.Imgold, vec(Game.WIDHT,Game.HEIGHT-100))
         self.draw_text(Game.SCREEN,str(self._floor.hero.gold)+" x Gold", font = Game.Font2, text_col=(255,255,255), x=Game.WIDHT, y=Game.HEIGHT-30)    
-    
-    
-    def chooseInventory(self) :
-        for event in pygame.event.get():
-            if event.key==pygame.K_0:
-                self._floor.hero._inventory[0].use()
-            elif event.key==pygame.K_1:
-                self._floor.hero._inventory[1].use()
-            elif event.key==pygame.K_2:
-                self._floor.hero._inventory[2].use()
-            elif event.key==pygame.K_3:
-                self._floor.hero._inventory[3].use()
-            elif event.key==pygame.K_4:
-                self._floor.hero._inventory[4].use()
-            elif event.key==pygame.K_5:
-                self._floor.hero._inventory[5].use()
-            elif event.key==pygame.K_6:
-                self._floor.hero._inventory[6].use()
-            elif event.key==pygame.K_7:
-                self._floor.hero._inventory[7].use()
-            elif event.key==pygame.K_8:
-                self._floor.hero._inventory[8].use()
-            elif event.key==pygame.K_9:
-                self._floor.hero._inventory[9].use()
 
 
     def key_down(self,event):
@@ -138,17 +112,24 @@ class Game(object):
             self.inventory_open = not(self.inventory_open)
         
         if(event.key in (pygame.K_z, pygame.K_s, pygame.K_q, pygame.K_d)):
-            theGame()._floor.key_down_event(event.key)
+            self._floor.key_down_event(event.key)
 
-        if event.key==pygame.K_u :
-            self.chooseInventory()
+        if(self.inventory_open and event.key in Game.key_dictionnary_number_py_jesus_is_waiting_for_us_timothee_is_doing_this):
+            key = Game.key_dictionnary_number_py_jesus_is_waiting_for_us_timothee_is_doing_this[event.key]
+            print(key, self._hero._inventory)
+            if(key >= len(self._hero._inventory)):
+                return
+            print("Goofy Ah")
+            self._hero._inventory[key].use(self._floor.hero, self._floor)
+            
             
 
     def play(self):
         while 1:
             #RGB : Red Green Blue
             Game.SCREEN.fill((50,33,37))
-            for event in pygame.event.get():
+            events = pygame.event.get()
+            for event in events:
                 if event.type==pygame.QUIT:
                     pygame.quit()
                     exit()
@@ -162,13 +143,11 @@ class Game(object):
         
 
             Game.SCREEN.blit(le_mur, (0,0))
-            theGame()._floor.drawGround(Game.SCREEN)
-            theGame()._floor.drawElem(Game.SCREEN)
-            Game.SCREEN.blit(heroImg, (theGame()._floor.hero.map_pos.x, theGame()._floor.hero.map_pos.y))
-            if(self.inventory_open):
-                self.inventory_draw(Game.SCREEN)
+            self._floor.drawGround(Game.SCREEN)
+            self._floor.drawElem(Game.SCREEN)
+            self.inventory_draw(Game.SCREEN)
             pygame.display.flip()
-            clock.tick(2000)
+            clock.tick(200000)
             pygame.display.set_caption(str(int(clock.get_fps())))
     
 def theGame(game=Game()) :
