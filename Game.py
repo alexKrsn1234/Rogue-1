@@ -18,7 +18,6 @@ pygame.display.set_icon(icon)
 
 vec = pygame.math.Vector2
 
-#Screen :
 
 
 heroImg=pygame.image.load("./Img/zelda_0.png")
@@ -26,11 +25,10 @@ mobImg=pygame.image.load("./Img/magicien.png")
 sol = pygame.image.load("./Img/sol1.png")
 stairs = pygame.image.load("./Img/escaliers.png")
 le_mur = pygame.image.load("./Img/la_muraille_du_kazakstan.png")
-#Game Loop :
 direction = {pygame.K_z:Coord(0,-1) , pygame.K_d:Coord(1,0), pygame.K_q:Coord(-1,0), pygame.K_s:Coord(0,1)}
 heroImg0=pygame.image.load("./Img/zelda_0.png")
 clock=pygame.time.Clock()
-
+game_over=pygame.image.load("./Img/game_over.png")
 
 
 
@@ -87,12 +85,14 @@ class Game(object):
             self.gold_draw(Game.SCREEN)
 
     def gold_draw(self,SCREEN):
-        Game.SCREEN.blit(Equipment.Imgold, vec(Game.WIDHT/2,Game.HEIGHT/2))
-        self.draw_text(Game.SCREEN,str(self._floor.hero.gold)+" x Gold", font = Game.Font2, text_col=(255,255,255), x=Game.WIDHT/2+Game.WIDHT/5, y=Game.HEIGHT/2)    
+        Game.SCREEN.blit(Equipment.Imgold, vec(Game.WIDHT/2+Game.WIDHT/5, Game.HEIGHT-Game.HEIGHT/7-20))
+        self.draw_text(Game.SCREEN,str(self._floor.hero.gold)+" x Gold", font = Game.Font2, text_col=(255,255,255), x=Game.WIDHT/2+Game.WIDHT/5+60, y=Game.HEIGHT-Game.HEIGHT/7)    
 
 
     def key_down(self,event):
         if event.key==pygame.K_k:
+            Game.SCREEN.blit(game_over,(100,100))
+            time.sleep(3)
             pygame.quit()
             exit()
 
@@ -121,7 +121,9 @@ class Game(object):
             Game.SCREEN.fill((50,33,37))
             events = pygame.event.get()
             for event in events:
-                if event.type==pygame.QUIT:
+                if event.type==pygame.QUIT or self._floor.hero.hp<=0:
+                    Game.SCREEN.blit(game_over,(self.WIDHT/2,self.HEIGHT/2))
+                    time.sleep(3)
                     pygame.quit()
                     exit()
             

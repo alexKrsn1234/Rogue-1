@@ -35,7 +35,7 @@ class Map:
     stairsIm=pygame.image.load("./Img/escaliers.png")
     dir={pygame.K_z: Coord(0,-1), pygame.K_s: Coord(0,1), pygame.K_d: Coord(1,0), pygame.K_q: Coord(-1,0)}
 
-    def __init__(self,size,hero=None,nbrooms=12):
+    def __init__(self,size,hero=None,nbrooms=20):
         self.size=size
         self._hero=hero
         self._mat=[]
@@ -231,6 +231,7 @@ class Map:
     def drawElem(self,SCREEN):
         from Game import Game
         self.hero.draw(SCREEN)
+        self.hero.draw_xp(SCREEN)
         for entity in self._elem :
             entity.draw(Game.SCREEN)
 

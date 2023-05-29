@@ -12,7 +12,8 @@ class Creature(Element):
     monsters = {0: [("goblin", 4,"G"), ("demon", 2, "D")],
                 1: [("bear", 6, "B", None, 2)], 5: [("shadow", 20, "S", None, 3)]}
     monsters_liste={"goblin": Imgoblin, "demon": Imdemon, "bear": Imbear, "shadow": Imshadow}
-    
+    monsters_liste_xp= {"goblin": 5, "demon": 2, "bear": 7, "shadow": 10}
+
     def __init__(self,name,hp,abbrv="",Im=None,strength=-1, coord = None):
         super().__init__(name,coord, abbrv)
         self.hp=hp
@@ -23,12 +24,16 @@ class Creature(Element):
             self.strength=1
         if self.name!="Hero" :
             self.Im=Creature.monsters_liste[self.name]
-     
+            self.xp=Creature.monsters_liste_xp[self.name]
+
     def description(self):
         return super().description()+"("+str(self.hp)+")"
     
     def meet(self,other):
         self.hp-=other.strength
+        if other.name=="Hero" and self.hp<=0:
+            other.xp+=self.xp
+            other.modifxp()
         return  (self.hp<=0)
 
     @staticmethod
