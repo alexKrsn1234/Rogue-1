@@ -122,6 +122,8 @@ class Map:
                 self._elem[e] = dest
                 if(isinstance(e, Hero)):
                     self.hero.coord = Coord(dest.x, dest.y)
+                    self.hero.movement+=1
+                    e.modifsasiety()
 
             elif self.get(dest) != Map.empty and self.get(dest).meet(e) and self.get(dest) != self.hero:
                 self.rm(dest)
@@ -232,6 +234,7 @@ class Map:
         from Game import Game
         self.hero.draw(SCREEN)
         self.hero.draw_xp(SCREEN)
+        self.hero.draw_sasiety(SCREEN)
         for entity in self._elem :
             entity.draw(Game.SCREEN)
 

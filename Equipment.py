@@ -25,9 +25,14 @@ def modifstrength(m,n,unique) :
     m.hero.strength+=n
     return unique
 
+def modifsasiety(hero):
+    hero.sasiety=hero.sasiety_max
+
+
 class Equipment(Element):
     equipments = {0: [("potion", "!", None, lambda hero, m: heal(hero), False), \
-                      ("gold", "o", None, None, False)], \
+                      ("gold", "o", None, None, False), \
+                      ("chicken","c",None,lambda hero, m: modifsasiety(hero), False)], \
                   1: [("potion_teleport", "?", None, lambda hero, m: teleport(m, hero, True))], \
                   2: [("sword", "s", None, lambda hero, m : modifstrength(m,5, False))], \
                   3: [("portoloin", "w" , None, lambda hero, m: teleport(m, hero, False))]}
@@ -37,7 +42,8 @@ class Equipment(Element):
     Imgold=pygame.image.load("./Img/gold.png")
     Imsword=pygame.image.load("./Img/sword.png")
     Importoloin=pygame.image.load("./Img/portoloin.png")
-    equipment_liste={"potion" : Impotion, "potion_teleport" : Impotiontel, "gold" : Imgold,"sword": Imsword, "portoloin" : Importoloin}
+    Imchicken=pygame.image.load("./Img/chicken.png")
+    equipment_liste={"potion" : Impotion, "potion_teleport" : Impotiontel, "gold" : Imgold,"sword": Imsword, "portoloin" : Importoloin, "chicken" : Imchicken}
     
     def __init__ (self,name,abbrv="",Im=None,usage=None, weapon=True, effect=None, strength=-1, coord = None ):
         super().__init__(name,coord,abbrv)
