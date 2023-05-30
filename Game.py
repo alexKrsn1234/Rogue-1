@@ -40,7 +40,7 @@ class Game(object):
     Modulo=HEIGHT//48
     SIZE = WIDHT, HEIGHT
     SCREEN=pygame.display.set_mode(SIZE)#, pygame.FULLSCREEN)
-    Font1 = pygame.font.SysFont('chalkduster.ttf', 35)
+    Font1 = pygame.font.SysFont('chalkduster.ttf', 30)
     Font2 = pygame.font.SysFont('chalkduster.ttf', 25)
     key_dictionnary_number = {pygame.K_0 : 0, pygame.K_1 : 1, pygame.K_2 : 2, pygame.K_3 : 3, pygame.K_4 : 4, pygame.K_5 : 5, pygame.K_6: 6, pygame.K_7 : 7, pygame.K_8 : 8, pygame.K_9 : 9}
     
@@ -78,10 +78,10 @@ class Game(object):
 
     def inventory_draw(self, SCREEN):
         if(self.inventory_open):
-            self.draw_text(Game.SCREEN, "Inventory : Choose an item", font = Game.Font1, text_col=(255,255,255), x=Game.WIDHT/2+Game.WIDHT/5, y=10)
+            self.draw_text(Game.SCREEN, "Inventory : Choose an item", font = Game.Font1, text_col=(255,255,255), x=Game.WIDHT/2+Game.WIDHT/5+50, y=20)
             for i in range(len(self._floor.hero._inventory)):
-                SCREEN.blit(self._floor.hero._inventory[i].Im, vec(Game.WIDHT/4+Game.WIDHT/2, 70 + i*50))
-                self.draw_text(Game.SCREEN,str(i)+" : "+ self._floor.hero._inventory[i].name, font = Game.Font2, text_col=(255,255,255), x=Game.WIDHT/4+Game.WIDHT/2+60, y=80 + i*50)
+                SCREEN.blit(self._floor.hero._inventory[i].Im, vec(Game.WIDHT/4+Game.WIDHT/2+20, 70 + i*50))
+                self.draw_text(Game.SCREEN,str(i)+" : "+ self._floor.hero._inventory[i].name, font = Game.Font2, text_col=(255,255,255), x=Game.WIDHT/4+Game.WIDHT/2+80, y=90 + i*50)
             self.gold_draw(Game.SCREEN)
 
     def gold_draw(self,SCREEN):
@@ -91,7 +91,8 @@ class Game(object):
 
     def key_down(self,event):
         if event.key==pygame.K_k:
-            Game.SCREEN.blit(game_over,(100,100))
+            Game.SCREEN.blit(game_over,(Game.WIDHT/2,Game.HEIGHT/2))
+            pygame.display.flip()
             time.sleep(3)
             pygame.quit()
             exit()
@@ -121,15 +122,21 @@ class Game(object):
             Game.SCREEN.fill((50,33,37))
             events = pygame.event.get()
             for event in events:
-                if event.type==pygame.QUIT or self._floor.hero.hp<=0:
-                    Game.SCREEN.blit(game_over,(self.WIDHT/2,self.HEIGHT/2))
+                if event.type==pygame.QUIT :
+                    pygame.quit()
+                    exit()
+
+                if self._floor.hero.hp<=0:
+                    Game.SCREEN.blit(game_over,(Game.WIDHT/2,Game.HEIGHT/2))
+                    pygame.display.flip()
                     time.sleep(3)
                     pygame.quit()
                     exit()
-            
+
                 if event.type==pygame.KEYDOWN:
                     self.key_down(event)
                     
+
                     #if (event.key ==pygame.K_u):
                      #  Game.SCREEN.blit()
                     

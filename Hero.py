@@ -68,8 +68,8 @@ class Hero(Creature):
         
     def draw_xp(self,SCREEN):
         from Game import Game
-        Game.draw_text(self,SCREEN,f"XP : {self.xp}/{self.xp_max}",Game.Font2,(255,255,255),500,45)
-        Game.draw_text(self,SCREEN,f"Level : {self.levelxp}",Game.Font2,(255,255,255),480,60)
+        Game.draw_text(self,SCREEN,f"XP : {self.xp}/{self.xp_max}",Game.Font2,(255,255,255),620,45)
+        Game.draw_text(self,SCREEN,f"Level : {self.levelxp}",Game.Font2,(255,255,255),620,60)
         pygame.draw.rect(SCREEN, (0,0,0), pygame.Rect(700,45,100,20))
         pygame.draw.rect(SCREEN, (150,150,150), pygame.Rect(703,48,95,14))
         pygame.draw.rect(SCREEN, (0,51,102), pygame.Rect(703,48,self.xp/self.xp_max*95,14))

@@ -35,7 +35,7 @@ class Map:
     stairsIm=pygame.image.load("./Img/escaliers.png")
     dir={pygame.K_z: Coord(0,-1), pygame.K_s: Coord(0,1), pygame.K_d: Coord(1,0), pygame.K_q: Coord(-1,0)}
 
-    def __init__(self,size,hero=None,nbrooms=20):
+    def __init__(self,size,hero=None,nbrooms=200):
         self.size=size
         self._hero=hero
         self._mat=[]
