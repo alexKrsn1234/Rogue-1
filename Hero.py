@@ -27,7 +27,7 @@ class Hero(Creature):
         if self.xp>self.xp_max:
             self.xp=0
             self.levelxp+=1
-            self.xp_max+=self.xp_max*2
+            self.xp_max=self.xp_max*2
             self.strength+=2
             self.hp=self.hp_max
 
