@@ -25,14 +25,14 @@ def modifstrength(m,n,unique) :
     m.hero.strength+=n
     return unique
 
-def modifsasiety(hero):
+def modifsasiety(hero,m):
+    print("couocou")
     hero.sasiety=hero.sasiety_max
-
 
 class Equipment(Element):
     equipments = {0: [("potion", "!", None, lambda hero, m: heal(hero), False), \
                       ("gold", "o", None, None, False), \
-                      ("chicken","c",None,lambda hero, m: modifsasiety(hero), False)], \
+                      ("chicken","c",None,lambda hero, m : modifsasiety(hero), False)], \
                   1: [("potion_teleport", "?", None, lambda hero, m: teleport(m, hero, True))], \
                   2: [("sword", "s", None, lambda hero, m : modifstrength(m,5, False))], \
                   3: [("portoloin", "w" , None, lambda hero, m: teleport(m, hero, False))]}
@@ -58,6 +58,9 @@ class Equipment(Element):
     def meet(self,hero):
         if isinstance(hero,Hero):
             hero.take(self)
+            if self.name=="chicken":
+                hero.sasiety=hero.sasiety_max
+            
             return True
     
     def use(self,creature, m):

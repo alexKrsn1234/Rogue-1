@@ -4,6 +4,7 @@ from Img import *
 
 vec = pygame.math.Vector2
 
+Imchickenmini=pygame.image.load("./Img/imchickenmini.png")
 
 class Hero(Creature):
     def __init__(self,name="Hero",hp=50,abbrv="@",Img=None,strength=2,inventory=None,gold=0, xp=0,sasiety=20):
@@ -46,7 +47,9 @@ class Hero(Creature):
 
     def take(self,e):
         if e.name=="gold":
-            self.gold+=1   
+            self.gold+=1 
+        if e.name=="chicken":
+            pass  
         else :
             if len(self._inventory)<10 :
                 return self._inventory.append(e)
@@ -89,9 +92,8 @@ class Hero(Creature):
         pygame.draw.rect(SCREEN, (0,51,102), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7+3,48,self.xp/self.xp_max*48,14))
 
     def draw_sasiety(self,SCREEN):
-        from Equipment import Imchicken
         from Game import Game
         pygame.draw.rect(SCREEN, (0,0,0), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7,70,155,20))
         pygame.draw.rect(SCREEN, (40,0,0), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7+3,73,150,14))
         pygame.draw.rect(SCREEN, (139,69,19), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7+3,73,self.sasiety/self.sasiety_max*150,14))
-        Game.SCREEN.blit(Imchicken,(Game.WIDHT-3*Game.WIDHT/7+3)+(self.sasiety/self.sasiety_max*150),)
+        Game.SCREEN.blit(Imchickenmini,((Game.WIDHT-3*Game.WIDHT/7+3)+(self.sasiety/self.sasiety_max*150)-5,70))
