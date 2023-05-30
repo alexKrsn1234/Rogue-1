@@ -61,15 +61,16 @@ class Hero(Creature):
         return l
         
     def draw(self, SCREEN):
+        from Game import Game
         super().draw(SCREEN)
-        pygame.draw.rect(SCREEN, (0,0,0), pygame.Rect(700,20,200,20))
-        pygame.draw.rect(SCREEN, (150,0,0), pygame.Rect(703,23,195,14))
-        pygame.draw.rect(SCREEN, (111,210,46), pygame.Rect(703,23,self.hp/self.hp_max*195,14))
+        pygame.draw.rect(SCREEN, (0,0,0), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7,20,200,20))
+        pygame.draw.rect(SCREEN, (150,0,0), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7+3,23,195,14))
+        pygame.draw.rect(SCREEN, (111,210,46), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7+3,23,self.hp/self.hp_max*195,14))
         
     def draw_xp(self,SCREEN):
         from Game import Game
-        Game.draw_text(self,SCREEN,f"XP : {self.xp}/{self.xp_max}",Game.Font2,(255,255,255),620,45)
-        Game.draw_text(self,SCREEN,f"Level : {self.levelxp}",Game.Font2,(255,255,255),620,60)
-        pygame.draw.rect(SCREEN, (0,0,0), pygame.Rect(700,45,100,20))
-        pygame.draw.rect(SCREEN, (150,150,150), pygame.Rect(703,48,95,14))
-        pygame.draw.rect(SCREEN, (0,51,102), pygame.Rect(703,48,self.xp/self.xp_max*95,14))
+        Game.draw_text(self,SCREEN,f"XP : {self.xp}/{self.xp_max}",Game.Font2,(255,255,255),Game.WIDHT-3*Game.WIDHT/7-80,47)
+        Game.draw_text(self,SCREEN,f"Level : {self.levelxp}",Game.Font2,(255,255,255),Game.WIDHT-3*Game.WIDHT/7-80,67)
+        pygame.draw.rect(SCREEN, (0,0,0), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7,45,100,20))
+        pygame.draw.rect(SCREEN, (150,150,150), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7+3,48,95,14))
+        pygame.draw.rect(SCREEN, (0,51,102), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7+3,48,self.xp/self.xp_max*95,14))
