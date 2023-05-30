@@ -89,7 +89,9 @@ class Hero(Creature):
         pygame.draw.rect(SCREEN, (0,51,102), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7+3,48,self.xp/self.xp_max*48,14))
 
     def draw_sasiety(self,SCREEN):
+        from Equipment import Imchicken
         from Game import Game
         pygame.draw.rect(SCREEN, (0,0,0), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7,70,155,20))
         pygame.draw.rect(SCREEN, (40,0,0), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7+3,73,150,14))
         pygame.draw.rect(SCREEN, (139,69,19), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7+3,73,self.sasiety/self.sasiety_max*150,14))
+        Game.SCREEN.blit(Imchicken,(Game.WIDHT-3*Game.WIDHT/7+3)+(self.sasiety/self.sasiety_max*150),)
