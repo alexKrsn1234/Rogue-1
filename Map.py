@@ -116,7 +116,11 @@ class Map:
         orig = self.pos(e)
         dest = orig + way
         if dest in self:
-            if self.get(dest) == Map.ground:
+            item = self.get(dest)
+            if(type(e) == type(item)):
+                return
+            
+            if item == Map.ground:
                 self._mat[orig.y][orig.x] = Map.ground
                 self._mat[dest.y][dest.x] = e
                 self._elem[e] = dest
@@ -125,7 +129,7 @@ class Map:
                     self.hero.movement+=1
                     e.modifsasiety()
 
-            elif self.get(dest) != Map.empty and self.get(dest).meet(e) and self.get(dest) != self.hero:
+            elif item != Map.empty and item.meet(e) and item != self.hero:
                 self.rm(dest)
                 return(True)
         return(False)
@@ -152,17 +156,16 @@ class Map:
             
     def repos(self):
         if self.hero.repos==True :
-            i=0
-            while i<10 :
+            for _ in range(10):
                 self.moveAllMonsters()
-                i+=1
+            #gay
             if self.hero.hp<=self.hero.hp_max :
                 self.hero.hp+=5
             else :
                 self.hero.hp=self.hero.hp_max
         self.hero.repos=False
         
-                
+    
 
     def addRoom(self,room):
         self._roomsToReach.append(room)
