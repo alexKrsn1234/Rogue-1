@@ -44,6 +44,6 @@ class Creature(Element):
         super().draw(SCREEN)
         pygame.draw.rect(SCREEN, (0,0,0), pygame.Rect(self.coord.x*48-1,self.coord.y*48-8,50,10))
         pygame.draw.rect(SCREEN, (150,0,0), pygame.Rect(self.coord.x*48,self.coord.y*48-7,48,8))
-        pygame.draw.rect(SCREEN, (111,210,46), pygame.Rect(self.coord.x*48,self.coord.y*48-7,self.hp/self.hp_max*55,8))
+        pygame.draw.rect(SCREEN, (111,210,46), pygame.Rect(self.coord.x*48,self.coord.y*48-7,self.hp/self.hp_max*48,8))
     
     
