@@ -23,6 +23,7 @@ class Hero(Creature):
         self.sasiety=sasiety
         self.sasiety_max=sasiety
         self.movement=0
+        self.repos=True
 
     def description(self):
        return super().description()+str(self._inventory)
@@ -48,7 +49,8 @@ class Hero(Creature):
     def take(self,e):
         if e.name=="gold":
             self.gold+=1 
-        if e.name=="chicken":
+            pass
+        elif e.name=="chicken":
             pass  
         else :
             if len(self._inventory)<10 :
@@ -74,6 +76,7 @@ class Hero(Creature):
         l="> INVENTORY : \n"
         for i in self._inventory:
             l+=str(i.name)+"\n"
+            print(l)
         return l
         
     def draw(self, SCREEN):
