@@ -23,6 +23,7 @@ class Stairs(Element):
             from Game import theGame
             from Map import Map
             theGame()._floor=Map(size=int(theGame().Modulo),hero = theGame()._floor.hero)
+            theGame()._floor.hero.repos=True
             theGame().buildFloor(theGame()._floor)
         
 

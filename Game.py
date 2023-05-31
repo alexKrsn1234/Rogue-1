@@ -101,6 +101,10 @@ class Game(object):
             print((self._floor.hero.strInventory()))
             self.inventory_open = not(self.inventory_open)
         
+        if event.key==pygame.K_SPACE :
+            self._floor.repos()
+
+                
         if(event.key in (pygame.K_z, pygame.K_s, pygame.K_q, pygame.K_d)):
             self._floor.key_down_event(event.key)
 

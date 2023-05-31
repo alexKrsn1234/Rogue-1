@@ -150,7 +150,18 @@ class Map:
             if(self.move(e,self.pos(e).direction(self.pos(self.hero)))):
                 i-=1
             
-           
+    def repos(self):
+        if self.hero.repos==True :
+            i=0
+            while i<10 :
+                self.moveAllMonsters()
+                i+=1
+            if self.hero.hp<=self.hero.hp_max :
+                self.hero.hp+=5
+            else :
+                self.hero.hp=self.hero.hp_max
+        self.hero.repos=False
+        
                 
 
     def addRoom(self,room):
