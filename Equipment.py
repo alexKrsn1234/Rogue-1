@@ -20,18 +20,25 @@ def teleport(m, creature, unique):
     creature.coord = c
     return unique
 
+def equip_weapon(hero, weapon):
+    if hero.weapon == None:
+        hero.weapon = weapon
+        hero.strength += weapon.strength
+    else:
+        hero.strength -= hero.weapon.strength
+        hero.weapon = weapon
+        hero.strength += weapon.strength
+    hero.weapon_durability = 5
 
-def modifstrenght(hero,n):
-        hero.strength+=n
-
+    return True
 
 class Equipment(Element):
-    equipments = {0: [("potion", "!", None, lambda hero, m: heal(hero), False), \
-                      ("gold", "o", None, None, False), \
-                      ("chicken","c",None, False)], \
-                  1: [("potion_teleport", "?", None, lambda hero, m: teleport(m, hero, True))], \
-                  2: [("sword", "s", None,lambda hero, m : modifstrenght(hero, 3, ))], \
-                  3: [("portoloin", "w" , None, lambda hero, m: teleport(m, hero, False))]}
+    equipments = {0: [("potion", "!", None, lambda hero, m, weapon: heal(hero)), \
+                      ("gold", "o"), \
+                      ("chicken","c")], \
+                  1: [("potion_teleport", "?", None, lambda hero, m, weapon: teleport(m, hero, True))], \
+                  2: [("sword", "s", None,lambda hero, m, weapon : equip_weapon(hero, weapon), 3)], \
+                  3: [("portoloin", "w" , None, lambda hero, m, weapon: teleport(m, hero, False))]}
 
     Impotion=pygame.image.load("./Img/potion.png")
     Impotiontel=pygame.image.load("./Img/potion_teleport.png")
@@ -41,11 +48,11 @@ class Equipment(Element):
     Imchicken=pygame.image.load("./Img/chicken.png")
     equipment_liste={"potion" : Impotion, "potion_teleport" : Impotiontel, "gold" : Imgold,"sword": Imsword, "portoloin" : Importoloin, "chicken" : Imchicken}
     
-    def __init__ (self,name,abbrv="",Im=None,usage=None, weapon=False, effect=None, coord = None ):
+    def __init__ (self,name,abbrv="",Im=None,usage=None, strength = 0, coord = None ):
         super().__init__(name,coord,abbrv)
         self.usage=usage
-        self.weapon = weapon
         self.Im=Equipment.equipment_liste[self.name]
+        self.strength = strength
 
     
     def meet(self,hero):
@@ -59,7 +66,7 @@ class Equipment(Element):
         if(self.usage == None):
             return(False)
         else :
-            return(self.usage(creature, m))
+            return(self.usage(creature, m, self))
 
     @staticmethod
     def randEquipment():

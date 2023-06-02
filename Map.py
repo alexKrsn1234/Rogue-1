@@ -124,6 +124,7 @@ class Map:
                 self._mat[orig.y][orig.x] = Map.ground
                 self._mat[dest.y][dest.x] = e
                 self._elem[e] = dest
+                e.coord=dest
                 if(isinstance(e, Hero)):
                     self.hero.coord = Coord(dest.x, dest.y)
                     self.hero.movement+=1
@@ -146,15 +147,11 @@ class Map:
             
             if not(self.pos(self.hero).distance(self.pos(e))<6):
                 continue
-            
-            if isinstance(e, Creature) and e.name!=self.hero.name:
-                if self.get(e.coord+e.coord.direction(self.pos(self.hero)))==Map.ground:
-                    e.coord+=e.coord.direction(self.pos(self.hero))
-                    if e.name=="bear" :
-                        if e.coord.distance(self.pos(self.hero))!=0 and self.get(e.coord+e.coord.direction(self.pos(self.hero)))==Map.ground :
-                            e.coord+=e.coord.direction(self.pos(self.hero))
-            if(self.move(e,self.pos(e).direction(self.pos(self.hero)))):
-                i-=1
+
+            for _ in range(e.turn):
+                if(self.move(e,self.pos(e).direction(self.pos(self.hero)))):
+                    i-=1
+                    break
             
     def repos(self):
         if self.hero.repos==True :

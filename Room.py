@@ -53,6 +53,7 @@ class Room (object):
 
         c1=self.randEmptyCoord(map)
         map.put(c1,Equipment(*Equipment.randEquipment(), coord=c1))
+        print(Equipment.randEquipment())
         c1=self.randEmptyCoord(map)
         map.put(c1,Creature(*Creature.randMonster(), coord=c1))
     

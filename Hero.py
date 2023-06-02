@@ -24,6 +24,8 @@ class Hero(Creature):
         self.sasiety_max=sasiety
         self.movement=0
         self.repos=True
+        self.weapon = None
+        self.weapon_durability = None
 
     def description(self):
        return super().description()+str(self._inventory)

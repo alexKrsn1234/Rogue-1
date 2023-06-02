@@ -10,16 +10,17 @@ class Creature(Element):
     Imbear=pygame.image.load("./Img/bear.png")
     Imshadow=pygame.image.load("./Img/shadow.png")
     monsters = {0: [("goblin", 4,"G"), ("demon", 3, "D")],
-                1: [("bear", 6, "B", None, 2)], 5: [("shadow", 20, "S", None, 3)]}
+                1: [("bear", 6, "B", None, 2, 2)], 5: [("shadow", 20, "S", None, 3)]}
     monsters_liste={"goblin": Imgoblin, "demon": Imdemon, "bear": Imbear, "shadow": Imshadow}
     monsters_liste_xp= {"goblin": 5, "demon": 2, "bear": 7, "shadow": 10}
 
-    def __init__(self,name,hp,abbrv="",Im=None,strength=-1, coord = None):
+    def __init__(self,name,hp,abbrv="",Im=None,strength=-1, turn = 1, coord = None):
         super().__init__(name,coord, abbrv)
         self.hp=hp
         self.hp_max=self.hp
         self.strength=strength
         self.Im=Im
+        self.turn = turn
         if self.strength==-1:
             self.strength=1
         if self.name!="Hero" :
@@ -31,9 +32,16 @@ class Creature(Element):
     
     def meet(self,other):
         self.hp-=other.strength
-        if other.name=="Hero" and self.hp<=0:
-            other.xp+=self.xp
-            other.modifxp()
+        if other.name=="Hero":
+            if self.hp<=0:
+                other.xp+=self.xp
+                other.modifxp()
+                
+            if(other.weapon != None):
+                other.weapon_durability -= 1
+                if(other.weapon_durability == 0):
+                    other.weapon = None
+                    other.strength -= self.strength
         return  (self.hp<=0)
 
     @staticmethod
