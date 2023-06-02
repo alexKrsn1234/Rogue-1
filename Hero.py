@@ -42,8 +42,6 @@ class Hero(Creature):
         if self.movement//3==1:
             self.movement=0
             self.sasiety-=1
-        print(self.movement)
-        print(self.sasiety)
         
 
     def take(self,e):
@@ -63,6 +61,10 @@ class Hero(Creature):
         if not (item in self._inventory):
             raise ValueError('Not in inventory')
         if item.use(self) :
+            self._inventory.pop(self._inventory.index(item))
+    
+    def durability(self,item):
+        if item.durability==0:
             self._inventory.pop(self._inventory.index(item))
 
     def fullDescription(self):
@@ -92,7 +94,7 @@ class Hero(Creature):
         Game.draw_text(self,SCREEN,f"Level : {self.levelxp}",Game.Font2,(255,255,255),Game.WIDHT-3*Game.WIDHT/7-80,67)
         pygame.draw.rect(SCREEN, (0,0,0), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7,45,100,20))
         pygame.draw.rect(SCREEN, (150,150,150), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7+3,48,95,14))
-        pygame.draw.rect(SCREEN, (0,51,102), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7+3,48,self.xp/self.xp_max*48,14))
+        pygame.draw.rect(SCREEN, (0,51,102), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7+3,48,self.xp/self.xp_max*95,14))
 
     def draw_sasiety(self,SCREEN):
         from Game import Game

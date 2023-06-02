@@ -140,10 +140,6 @@ class Game(object):
                 if event.type==pygame.KEYDOWN:
                     self.key_down(event)
                     
-
-                    #if (event.key ==pygame.K_u):
-                     #  Game.SCREEN.blit()
-                    
         
 
             Game.SCREEN.blit(le_mur, (0,0))

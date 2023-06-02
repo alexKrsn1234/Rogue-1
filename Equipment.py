@@ -21,20 +21,16 @@ def teleport(m, creature, unique):
     return unique
 
 
-def modifstrength(m,n,unique) :
-    m.hero.strength+=n
-    return unique
+def modifstrenght(hero,n):
+        hero.strength+=n
 
-def modifsasiety(hero,m):
-    print("couocou")
-    hero.sasiety=hero.sasiety_max
 
 class Equipment(Element):
     equipments = {0: [("potion", "!", None, lambda hero, m: heal(hero), False), \
                       ("gold", "o", None, None, False), \
-                      ("chicken","c",None,lambda hero, m : modifsasiety(hero), False)], \
+                      ("chicken","c",None, False)], \
                   1: [("potion_teleport", "?", None, lambda hero, m: teleport(m, hero, True))], \
-                  2: [("sword", "s", None, lambda hero, m : modifstrength(m,5, False))], \
+                  2: [("sword", "s", None,lambda hero, m : modifstrenght(hero, 3, ))], \
                   3: [("portoloin", "w" , None, lambda hero, m: teleport(m, hero, False))]}
 
     Impotion=pygame.image.load("./Img/potion.png")
@@ -45,13 +41,10 @@ class Equipment(Element):
     Imchicken=pygame.image.load("./Img/chicken.png")
     equipment_liste={"potion" : Impotion, "potion_teleport" : Impotiontel, "gold" : Imgold,"sword": Imsword, "portoloin" : Importoloin, "chicken" : Imchicken}
     
-    def __init__ (self,name,abbrv="",Im=None,usage=None, weapon=True, effect=None, strength=-1, coord = None ):
+    def __init__ (self,name,abbrv="",Im=None,usage=None, weapon=False, effect=None, coord = None ):
         super().__init__(name,coord,abbrv)
         self.usage=usage
         self.weapon = weapon
-        self.strength = strength
-        if self.strength==-1:
-            self.strength=1
         self.Im=Equipment.equipment_liste[self.name]
 
     
@@ -60,14 +53,13 @@ class Equipment(Element):
             hero.take(self)
             if self.name=="chicken":
                 hero.sasiety=hero.sasiety_max
-            
             return True
     
     def use(self,creature, m):
         if(self.usage == None):
             return(False)
-        
-        return(self.usage(creature, m))
+        else :
+            return(self.usage(creature, m))
 
     @staticmethod
     def randEquipment():

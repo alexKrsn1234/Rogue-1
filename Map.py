@@ -150,7 +150,9 @@ class Map:
             if isinstance(e, Creature) and e.name!=self.hero.name:
                 if self.get(e.coord+e.coord.direction(self.pos(self.hero)))==Map.ground:
                     e.coord+=e.coord.direction(self.pos(self.hero))
-
+                    if e.name=="bear" :
+                        if e.coord.distance(self.pos(self.hero))!=0 and self.get(e.coord+e.coord.direction(self.pos(self.hero)))==Map.ground :
+                            e.coord+=e.coord.direction(self.pos(self.hero))
             if(self.move(e,self.pos(e).direction(self.pos(self.hero)))):
                 i-=1
             
@@ -158,8 +160,7 @@ class Map:
         if self.hero.repos==True :
             for _ in range(10):
                 self.moveAllMonsters()
-            #gay
-            if self.hero.hp<=self.hero.hp_max :
+            if self.hero.hp+5<=self.hero.hp_max :
                 self.hero.hp+=5
             else :
                 self.hero.hp=self.hero.hp_max
@@ -250,7 +251,13 @@ class Map:
         self.hero.draw_xp(SCREEN)
         self.hero.draw_sasiety(SCREEN)
         for entity in self._elem :
-            entity.draw(Game.SCREEN)
+            if entity.name=="demon" :
+                if self.pos(entity).distance(self.pos(self.hero))==1 :
+                    entity.draw(Game.SCREEN)
+                else :
+                    pass
+            else :
+                entity.draw(Game.SCREEN)
 
 
         
