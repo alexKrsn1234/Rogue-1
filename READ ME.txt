@@ -1,0 +1,25 @@
+READ ME
+
+Bonjour, bienvenu sur le jeu ROGUE LINK
+
+Besoins préliminaires :
+
+    Avant de pouvoir jouer au jeu, il est necessaire d'installer le module pygame dans votre terminale. La commande à taper dans votre terminal est : pip install pygame
+    Pour jouer, vous devez executer le programme dans le main.
+
+Comment jouer :
+
+    Afin de se déplacer, veuillez utiliser les touches : q,d,z,s.
+    Pour ouvrir l'inventaire : i
+    Pour effectuer Repos : Espace
+    Pour utiliser un élément de l'inventaire : un chiffre entre 0 et 9 selon son placement dans l'inventaire (pas ceuux du pavé numérique)
+
+Qu'est ce qui vous attend dans notre jeu :
+
+    Des monstres, des potions, de l'action... 
+    Certains peuvent se déplacer vite, d'autres apparaitrons d'un coup sous vos yeux.
+    Pensez à vous nourrir pour ne pas mourir.
+    Remportez vos combats pour monter de niveau.
+
+
+En ésperant que vous passiez un bon moment sur notre jeu.
