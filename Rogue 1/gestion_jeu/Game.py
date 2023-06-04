@@ -2,33 +2,33 @@ import pygame
 import time
 import random
 from Img import *
-from Map import Map
-from Coord import Coord
-from Stairs import Stairs
-from Hero import Hero
-from Equipment import Equipment
+from gestion_map.Map import Map
+from autre.Coord import Coord
+from gestion_map.Stairs import Stairs
+from elements_jeu.Hero import Hero
+from elements_jeu.Equipment import Equipment
 import time
 #Init :
 pygame.init()
 pygame.font.init()
 #Title and Icon :
 pygame.display.set_caption("Hunger Games")
-icon=pygame.image.load("./Img/icon.png")
+icon=pygame.image.load("./Rogue 1/Img/icon.png")
 pygame.display.set_icon(icon)
 
 vec = pygame.math.Vector2
 
 
 
-heroImg=pygame.image.load("./Img/zelda_0.png")
-mobImg=pygame.image.load("./Img/magicien.png")
-sol = pygame.image.load("./Img/sol1.png")
-stairs = pygame.image.load("./Img/escaliers.png")
-le_mur = pygame.image.load("./Img/la_muraille_du_kazakstan.png")
+heroImg=pygame.image.load("./Rogue 1/Img/zelda_0.png")
+mobImg=pygame.image.load("./Rogue 1/Img/magicien.png")
+sol = pygame.image.load("./Rogue 1/Img/sol1.png")
+stairs = pygame.image.load("./Rogue 1/Img/escaliers.png")
+le_mur = pygame.image.load("./Rogue 1/Img/la_muraille_du_kazakstan.png")
 direction = {pygame.K_z:Coord(0,-1) , pygame.K_d:Coord(1,0), pygame.K_q:Coord(-1,0), pygame.K_s:Coord(0,1)}
-heroImg0=pygame.image.load("./Img/zelda_0.png")
+heroImg0=pygame.image.load("./Rogue 1/Img/zelda_0.png")
 clock=pygame.time.Clock()
-game_over=pygame.image.load("./Img/game_over.png")
+game_over=pygame.image.load("./Rogue 1/Img/game_over.png")
 
 
 

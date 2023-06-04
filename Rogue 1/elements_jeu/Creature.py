@@ -1,14 +1,14 @@
-from Element import Element
+from elements_jeu.Element import Element
 import pygame
 from Img import *
 
 vec = pygame.math.Vector2
 
 class Creature(Element):
-    Imgoblin=pygame.image.load("./Img/goblin.png")
-    Imdemon=pygame.image.load("./Img/demon.png")
-    Imbear=pygame.image.load("./Img/bear.png")
-    Imshadow=pygame.image.load("./Img/shadow.png")
+    Imgoblin=pygame.image.load("./Rogue 1/Img/goblin.png")
+    Imdemon=pygame.image.load("./Rogue 1/Img/demon.png")
+    Imbear=pygame.image.load("./Rogue 1/Img/bear.png")
+    Imshadow=pygame.image.load("./Rogue 1/Img/shadow.png")
     monsters = {0: [("goblin", 4,"G"), ("demon", 3, "D")],
                 1: [("bear", 6, "B", None, 2, 2)], 5: [("shadow", 20, "S", None, 3)]}
     monsters_liste={"goblin": Imgoblin, "demon": Imdemon, "bear": Imbear, "shadow": Imshadow}
@@ -49,7 +49,7 @@ class Creature(Element):
         return Element.randElement(Creature.monsters)
     
     def draw(self, SCREEN):
-        from Game import theGame
+        from gestion_jeu.Game import theGame
         super().draw(SCREEN)
         if self.name=="demon" :
             if  theGame()._floor.pos(self).distance(theGame()._floor.pos(theGame()._floor.hero))==1:

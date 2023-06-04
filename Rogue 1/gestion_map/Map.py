@@ -1,10 +1,10 @@
-from Coord import Coord
-from Hero import Hero
-from Creature import Creature
-from Element import Element
-from Equipment import Equipment
-from Room import Room
-from Stairs import Stairs
+from autre.Coord import Coord
+from elements_jeu.Hero import Hero
+from elements_jeu.Creature import Creature
+from elements_jeu.Element import Element
+from elements_jeu.Equipment import Equipment
+from gestion_map.Room import Room
+from gestion_map.Stairs import Stairs
 import random
 import pygame
 import time
@@ -18,7 +18,7 @@ pygame.init()
 vec = pygame.math.Vector2
 #Title and Icon :
 pygame.display.set_caption("Hunger Games")
-icon=pygame.image.load("./Img/icon.png")
+icon=pygame.image.load("./Rogue 1/Img/icon.png")
 pygame.display.set_icon(icon)
 
 #Screen :
@@ -26,13 +26,13 @@ pygame.display.set_icon(icon)
 
 
 class Map:
-    groundIm=pygame.image.load("./Img/sol1.png")
+    groundIm=pygame.image.load("./Rogue 1/Img/sol1.png")
     ground="."
-    emptyIm=pygame.image.load("./Img/mur1.png")
+    emptyIm=pygame.image.load("./Rogue 1/Img/mur1.png")
     empty=" "
     direction = {pygame.K_z:vec(0,-1) , pygame.K_d:vec(1,0), pygame.K_q:vec(-1,0), pygame.K_s:vec(0,1)}
-    heroImg0=pygame.image.load("./Img/zelda_0.png")
-    stairsIm=pygame.image.load("./Img/escaliers.png")
+    heroImg0=pygame.image.load("./Rogue 1/Img/zelda_0.png")
+    stairsIm=pygame.image.load("./Rogue 1/Img/escaliers.png")
     dir={pygame.K_z: Coord(0,-1), pygame.K_s: Coord(0,1), pygame.K_d: Coord(1,0), pygame.K_q: Coord(-1,0)}
 
     def __init__(self,size,hero=None,nbrooms=200):
@@ -243,7 +243,7 @@ class Map:
                     SCREEN.blit(self.groundIm, vec(ligne, case)*48)
     
     def drawElem(self,SCREEN):
-        from Game import Game
+        from gestion_jeu.Game import Game
         self.hero.draw(SCREEN)
         self.hero.draw_xp(SCREEN)
         self.hero.draw_sasiety(SCREEN)

@@ -1,8 +1,8 @@
-from Coord import Coord
+from autre.Coord import Coord
 import random
 import pygame
-from Creature import Creature
-from Equipment import Equipment
+from elements_jeu.Creature import Creature
+from elements_jeu.Equipment import Equipment
 
 
 class Room (object):

@@ -1,14 +1,14 @@
-from Creature import Creature
+from elements_jeu.Creature import Creature
 import pygame
 from Img import *
 
 vec = pygame.math.Vector2
 
-Imchickenmini=pygame.image.load("./Img/imchickenmini.png")
+Imchickenmini=pygame.image.load("./Rogue 1/Img/imchickenmini.png")
 
 class Hero(Creature):
     def __init__(self,name="Hero",hp=50,abbrv="@",Img=None,strength=2,inventory=None,gold=0, xp=0,sasiety=20):
-        super().__init__(name,hp,abbrv,pygame.image.load("./Img/zelda_0.png"),strength)
+        super().__init__(name,hp,abbrv,pygame.image.load("./Rogue 1/Img/zelda_0.png"),strength)
         self._inventory=inventory
         self.gold=gold
         if self._inventory==None:
@@ -84,14 +84,14 @@ class Hero(Creature):
         return l
         
     def draw(self, SCREEN):
-        from Game import Game
+        from gestion_jeu.Game import Game
         super().draw(SCREEN)
         pygame.draw.rect(SCREEN, (0,0,0), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7,20,200,20))
         pygame.draw.rect(SCREEN, (150,0,0), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7+3,23,195,14))
         pygame.draw.rect(SCREEN, (111,210,46), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7+3,23,self.hp/self.hp_max*195,14))
         
     def draw_xp(self,SCREEN):
-        from Game import Game
+        from gestion_jeu.Game import Game
         Game.draw_text(self,SCREEN,f"XP : {self.xp}/{self.xp_max}",Game.Font2,(255,255,255),Game.WIDHT-3*Game.WIDHT/7-80,47)
         Game.draw_text(self,SCREEN,f"Level : {self.levelxp}",Game.Font2,(255,255,255),Game.WIDHT-3*Game.WIDHT/7-80,67)
         pygame.draw.rect(SCREEN, (0,0,0), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7,45,100,20))
@@ -99,7 +99,7 @@ class Hero(Creature):
         pygame.draw.rect(SCREEN, (0,51,102), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7+3,48,self.xp/self.xp_max*95,14))
 
     def draw_sasiety(self,SCREEN):
-        from Game import Game
+        from gestion_jeu.Game import Game
         pygame.draw.rect(SCREEN, (0,0,0), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7,70,155,20))
         pygame.draw.rect(SCREEN, (40,0,0), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7+3,73,150,14))
         pygame.draw.rect(SCREEN, (139,69,19), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7+3,73,self.sasiety/self.sasiety_max*150,14))

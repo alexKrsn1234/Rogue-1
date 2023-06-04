@@ -1,6 +1,6 @@
-from Element import Element
+from elements_jeu.Element import Element
 import pygame
-from Hero import Hero
+from elements_jeu.Hero import Hero
 import random
 
 def heal(creature):
@@ -40,12 +40,12 @@ class Equipment(Element):
                   2: [("sword", "s", None,lambda hero, m, weapon : equip_weapon(hero, weapon), 3)], \
                   3: [("portoloin", "w" , None, lambda hero, m, weapon: teleport(m, hero, False))]}
 
-    Impotion=pygame.image.load("./Img/potion.png")
-    Impotiontel=pygame.image.load("./Img/potion_teleport.png")
-    Imgold=pygame.image.load("./Img/gold.png")
-    Imsword=pygame.image.load("./Img/sword.png")
-    Importoloin=pygame.image.load("./Img/portoloin.png")
-    Imchicken=pygame.image.load("./Img/chicken.png")
+    Impotion=pygame.image.load("./Rogue 1/Img/potion.png")
+    Impotiontel=pygame.image.load("./Rogue 1/Img/potion_teleport.png")
+    Imgold=pygame.image.load("./Rogue 1/Img/gold.png")
+    Imsword=pygame.image.load("./Rogue 1/Img/sword.png")
+    Importoloin=pygame.image.load("./Rogue 1/Img/portoloin.png")
+    Imchicken=pygame.image.load("./Rogue 1/Img/chicken.png")
     equipment_liste={"potion" : Impotion, "potion_teleport" : Impotiontel, "gold" : Imgold,"sword": Imsword, "portoloin" : Importoloin, "chicken" : Imchicken}
     
     def __init__ (self,name,abbrv="",Im=None,usage=None, strength = 0, coord = None ):
