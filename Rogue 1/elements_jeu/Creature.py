@@ -9,10 +9,10 @@ class Creature(Element):
     Imdemon=pygame.image.load("./Rogue 1/Img/demon.png")
     Imbear=pygame.image.load("./Rogue 1/Img/bear.png")
     Imshadow=pygame.image.load("./Rogue 1/Img/shadow.png")
-    monsters = {0: [("goblin", 4,"G"), ("demon", 3, "D")],
-                1: [("bear", 6, "B", None, 2, 2)], 5: [("shadow", 20, "S", None, 3)]}
+    monsters = {0: [("goblin", 4,"G"), ("demon", 12, "D")],
+                1: [("bear", 6, "B", None, 2, 2)], 5: [("shadow", 18, "S", None, 3)]}
     monsters_liste={"goblin": Imgoblin, "demon": Imdemon, "bear": Imbear, "shadow": Imshadow}
-    monsters_liste_xp= {"goblin": 5, "demon": 2, "bear": 7, "shadow": 10}
+    monsters_liste_xp= {"goblin": 5, "demon": 5, "bear": 7, "shadow": 10}
 
     def __init__(self,name,hp,abbrv="",Im=None,strength=-1, turn = 1, coord = None):
         super().__init__(name,coord, abbrv)
