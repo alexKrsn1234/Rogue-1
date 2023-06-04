@@ -103,4 +103,7 @@ class Hero(Creature):
         pygame.draw.rect(SCREEN, (0,0,0), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7,70,155,20))
         pygame.draw.rect(SCREEN, (40,0,0), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7+3,73,150,14))
         pygame.draw.rect(SCREEN, (139,69,19), pygame.Rect(Game.WIDHT-3*Game.WIDHT/7+3,73,self.sasiety/self.sasiety_max*150,14))
-        Game.SCREEN.blit(Imchickenmini,((Game.WIDHT-3*Game.WIDHT/7+3)+(self.sasiety/self.sasiety_max*150)-5,70))
+        if self.sasiety>0 :
+            Game.SCREEN.blit(Imchickenmini,((Game.WIDHT-3*Game.WIDHT/7+3)+(self.sasiety/self.sasiety_max*150)-5,70))
+        else :
+            Game.SCREEN.blit(Imchickenmini,((Game.WIDHT-3*Game.WIDHT/7+3)-5,70))
