@@ -91,7 +91,7 @@ class Game(object):
 
     def key_down(self,event):
         if event.key==pygame.K_k:
-            Game.SCREEN.blit(game_over,(Game.WIDHT/2,Game.HEIGHT/2))
+            Game.SCREEN.blit(game_over,(4*Game.WIDHT/9,4*Game.HEIGHT/9))
             pygame.display.flip()
             time.sleep(3)
             pygame.quit()
@@ -131,7 +131,7 @@ class Game(object):
                     exit()
 
                 if self._floor.hero.hp<=0:
-                    Game.SCREEN.blit(game_over,(Game.WIDHT/2,Game.HEIGHT/2))
+                    Game.SCREEN.blit(game_over,(4*Game.WIDHT/9,4*Game.HEIGHT/9))
                     pygame.display.flip()
                     time.sleep(3)
                     pygame.quit()
